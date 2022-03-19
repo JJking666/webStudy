@@ -1,0 +1,33 @@
+/*!******************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/less-loader/dist/cjs.js!./src/style/cy.less ***!
+  \******************************************************************************************************************************************************/
+body {
+  color: red;
+}
+.s {
+  color: red;
+}
+
+/*!*****************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./src/style/index.css ***!
+  \*****************************************************************************************************************/
+div{
+}
+.xx{
+    font-size:22px;
+}
+.cc{
+    border: 2px solid red;
+    border-radius: 4px;
+    width: 150px;
+    height: 150px;
+    -webkit-transform:translateX(50px);
+            transform:translateX(50px)
+}
+.yy{
+    border: 2px solid red;
+    border-radius: 30%;
+    width: 160px;
+    height: 140px;
+    background-color:rgba(231, 163, 163, 0.6)
+}
