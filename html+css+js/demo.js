@@ -89,8 +89,12 @@
 //     }
 //     console.log(...res)
 // }
-foo=2;
-(function go(){
-    function foo(a,b){return a+b}/* 之后的赋值过程不改变已有属性的内部属性,DontDelete仍然存在 */
-    console.log(typeof foo,foo); // "number"
-})()
+console.log(-123n)
+function Person(){}
+function children(){}
+Object.setPrototypeOf(children.prototype, Person.prototype);
+console.log(children.prototype.__proto__ == Person.prototype)
+console.log(Object.getPrototypeOf(children.prototype) == Person.prototype)
+children.prototype = Object.create(Person.prototype)
+console.log(children.prototype.__proto__ == Person.prototype)
+console.log(Object.getPrototypeOf(children) == Person)

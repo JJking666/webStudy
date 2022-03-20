@@ -115,10 +115,8 @@
 
 </body>
 <script type="text/javascript">
-    // }
-foo =2
-function foo(a,b){return a+b}/* 之后的赋值过程不改变已有属性的内部属性,DontDelete仍然存在 */ foo = 1;
-console.log() // false;
+
+function foo(a,b){return a+b}/* 之后的赋值过程不改变已有属性的内部属性,DontDelete仍然存在 */
 console.log(typeof foo,foo); // "number"
     var images = new Array()
     function preload() {

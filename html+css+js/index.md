@@ -948,7 +948,7 @@ devServer: {
         noInfo: true
     }
 //后端路由配置前
-app.all('*', function(req, res, next) {undefined
+app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With,Content-Type");
     res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
@@ -1054,6 +1054,8 @@ btn.onclick = function() {
 + 注意bug , typeof null 为object(因为JavaScript 数据类型在底层都是以二进制的形式表示的)
 + 基本数据类型存储在栈,引用类型的指针存储在栈中,但指针指向的引用存储在堆内存中
 + typeof会返回number,string,boolean,undefined,object,function
++ bigint 只需要在数字后加上n，或者Bigint(123)
+  + 支持加减乘除，但不可在非负数前使用+，即(+123n)
 
 ### for...of
 + es6新增的一个遍历方法,但只限于迭代器(iterator), 所以普通的对象用for..of遍历
@@ -1263,7 +1265,7 @@ console.log(yideng.address);  //beijing
   + 在 eval 中声明的变量事实上没有 DontDelete 属性
   + 但是在eval代码中的**函数内**定义的变量有DontDelete 属性
 ```ts
-bar = 2;
+bar = 2;    //隐式声明
 delete bar; // true
 
 this.bar = 1;
@@ -1271,7 +1273,8 @@ delete bar; // true;
 typeof bar; // "undefined"
 
 /* 'foo'创建的同时生成 DontDelete */
-function foo() {}; /* 之后的赋值过程不改变已有属性的内部属性,DontDelete仍然存在 */ foo = 1;
+function foo() {}; /* 之后的赋值过程不改变已有属性的内部属性,DontDelete仍然存在 */
+foo = 1;
 delete foo; // false;
 typeof foo; // "number"
 ```
@@ -1290,7 +1293,7 @@ typeof foo; // "number"
   + 如果你想让一个数组元素的值变为 undefined 而不是删除它,可以使用 undefined 给其赋值而不是使用 delete 操作符。此时数组元素是在数组中的
 + delete 操作符与直接释放内存（只能通过解除引用来间接释放）没有关系
 
-+ console 中的所有文本都会被当做 eval 代码来解析和执行,而不是全局或函数代码著作权归作者所有。
++ console 中的所有文本都会被当做 eval 代码来解析和执行,而不是全局或函数
 
 + <script src="script.js" defer></script> js异步执行,在元素解析后完成,并按书写顺序加载
 + <script async src="script.js"></script> js异步执行,但是不会按书写顺序
@@ -1489,6 +1492,26 @@ console.log( n )    //jack
 
 >构造函数的new都做了些什么？简单来说,分为四步： ① JS内部首先会先生成一个对象; ② 再把函数中的this指向该对象; ③ 然后执行构造函数中的语句; ④ 最终返回该对象实例。
 
+## Object.create()和Object.setPrototypeOf()
+>Object.setPrototypeOf()
+```ts
+//Cat.prototype.__proto__ = Animal.prototype
+Object.setPrototypeOf(Cat.prototype, Animal.prototype)
+const cat = new Cat('mimi', 'miao~miao~')
+```
+给Cat的原型设置了一个名为Animal的原型,所以Cat的原有的原型的原型就是Animal的原型Cat.prototype.__proto__ === Animal.prototype
+所以setPrototypeOf会优先访问Cat原有的原型然后再访问原型的原型
+
+>Object.create()
+```ts
+Cat.prototype = Object.create(Animal.prototype)
+console.log(Cat.prototype)
+```
+
+使用Object.create()会将Cat.prototype先将此原型清成空,这个空的原型会指向Animal的原型Cat.prototype(null).__proto__ === Animal.prototype
+所以Object.create()会将Cat.prototype清空为干净的原型,然后去继承
+
+
 ## 函数继承
 >优点
 + 提高了复用性,维护性,使类之间产生联系
@@ -1642,6 +1665,7 @@ inheritPrototype(Child, Parent);
   + link 除了引用样式文件,还可以引用图片等资源文件,而 @import 只引用样式文件
 + 加载顺序不同
   + link 引用 CSS 时,在页面载入时同时加载;@import 需要页面网页完全载入以后加载
++ 在文档中添加link标签,浏览器会识别该文档为css文件,就会并行下载资源并且**不会停止**对当前文档的处理。这也是为什么建议使用link方式来加载css,而不是使用@import方式
 
 ### href和src
 > src用于替换当前元素,href用于在当前文档和引用资源之间确立联系。
@@ -1650,7 +1674,7 @@ inheritPrototype(Child, Parent);
   + 当浏览器解析到该元素时,会**暂停其他资源的下载和处理**,直到将该资源加载、编译、执行**完毕**,图片和框架 等元素也如此,类似于将所指向资源嵌入当前标签内。这也是为什么将js脚本放在底部而不是头部
 + href
   + href是Hypertext Reference的缩写,指向网络资源所在位置,建立和当前元素（锚点）或当前文档（链接）之间的链接
-  + 在文档中添加link标签,浏览器会识别该文档为css文件,就会并行下载资源并且**不会停止**对当前文档的处理。这也是为什么建议使用link方式来加载css,而不是使用@import方式
+
 
 ## Proxy和Reflect
 
@@ -1784,7 +1808,7 @@ inheritPrototype(Child, Parent);
 > //__proto__: Object
 > a = Object.getOwnPropertyDescriptor(o, 'a')
 > //{value: 1, writable: true, enumerable: true, > configurable: true}
-> //configurable: true
+> //configurable: true 能否使用delete、能否需改属性特性、或能否修改访问器属性
 > //enumerable: true
 > //value: 1
 > //writable: true
@@ -1793,7 +1817,7 @@ inheritPrototype(Child, Parent);
 
 > Object.getOwnPropertyDescriptors()	方法用来获取一个对象的所有自身属性的描述符。
 > Object.getOwnPropertyNames()	方法返回一个由指定对象的所有自身属性的属性名（包括不可枚举属性但不包括Symbol值作为名称的属性）组成的数组。
-> Object.getPrototypeOf()	方法返回指定对象的原型（内部[[Prototype]]属性的值）。
+> Object.getPrototypeOf()	方法返回指定对象的原型（内部[[Prototype]]属性的值）,读取对象的prototype/__proto__对象
 > Object.is()	方法判断两个值是否为同一个值,Object.is(),其行为与===基本一致,不过有两处不同：**1.+0不等于-0;2.NaN等于自身。**
 > Object.isExtensible()	方法判断一个对象是否是可扩展的（是否可以在它上面添加新的属性）。
 > Object.isFrozen()	方法判断一个对象是否被冻结。
@@ -2087,6 +2111,12 @@ patchVnode (oldVnode, vnode) {
   + 无阻塞：头部内联的样式和脚本会阻塞页面的渲染，样式放在头部并使用link方式引入，脚本放在尾部并使用异步方式加载
 
 + 首屏加载：首屏快速显示可大大提升用户对页面速度的感知，应尽量针对首屏的快速显示做优化
+  + 将小图片内联为Data URL，也可以额减小HTTP的请求数量，浏览器缓存并不会存储Data URL格式的图片，放在css的background-image属性中即可。**注意Data URL在渲染和CPU消耗上更大**
+  + 使用骨架屏,即未显示时的暂用页面
+  + 减少HTTP请求数量
+  + 减少请求资源的大小
+  + 减少不必要的代码
+  + 图片懒加载，路由懒加载
 
 + 按需加载：将不影响首屏的资源和当前屏幕不用的资源放到用户需要时才加载，可大大提升显示速度和降低总体流量(按需加载会导致大量重绘，影响渲染性能)
   + 懒加载
@@ -2138,7 +2168,7 @@ patchVnode (oldVnode, vnode) {
 3、加载完后解析html，并在解析的过程中构建DOM树
 解析遇到link、script、img标签时，浏览器会向服务器发送请求资源。
 script的加载或者执行都会阻塞html解析、其他下载线程以及渲染线程。
-link加载完css后会解析为CSSOM(层叠样式表对象模型,一棵仅含有样式信息的树)。css的加载和解析不会阻塞html的解析，但会阻塞渲染。
+link加载完css后会解析为CSSOM(层叠样式表对象模型,一棵仅含有样式信息的树)。css的加载和解析不会阻塞html的解析，但会阻塞渲染树。
 img的加载不会阻塞html的解析，但img加载后并不渲染，它需要等待Render Tree生成完后才和Render Tree一起渲染出来。未下载完的图片需等下载完后才渲染。
 4、当css解析为CSSOM后，html解析为DOM后，两者一边解析一边生成Render Tree(渲染树)。
 5、Layout: 计算出Render Tree每个节点的具体位置。
@@ -2311,5 +2341,4 @@ f()
 + cookie(同源可以跨页面)
 + Websocket
 + iframe(用iframe当做桥梁， iframe 与父页面间可以通过指定origin来忽略同源限制)
-
-## 同一row下不同col高度不一致
++ postmessage
