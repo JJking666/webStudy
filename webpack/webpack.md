@@ -84,6 +84,7 @@ module.exports={
 },
 'less-loader'
 ```
+//注意点
 + file-loader 在js中加入图片节点并设置src，打包后会无法识别图片资源，也需要做转换
 + webpack通常情况下也无法处理图片资料
 + 在js引入的css中的背景图片等，是由css-loader处理而非file-loader,它会将url处理返回esModule故应将css-loader配置下esModule设置为false

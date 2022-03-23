@@ -71,5 +71,20 @@
 
 //     return res
 // }
-let arr ='1as'
-console.log(arr.includes('A'),arr.includes('a'),arr.includes('d'))
+// var grayCode = function(n: number):any {
+//     const ret = [0];
+//     for (let i = 1; i <= n; i++) {
+//         const m = ret.length;
+//         for (let j = m - 1; j >= 0; j--) {
+//             ret.push(ret[j] | (1 << (i - 1)));
+//         }
+//         console.log(ret)
+//     }
+//     return ret;
+// };
+// grayCode(5)
+
+
+const a:(number|string)[] = []
+a.push(1,'a')
+console.log(a)
