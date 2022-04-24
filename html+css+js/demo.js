@@ -89,12 +89,36 @@
 //     }
 //     console.log(...res)
 // }
-console.log(-123n)
-function Person(){}
-function children(){}
-Object.setPrototypeOf(children.prototype, Person.prototype);
-console.log(children.prototype.__proto__ == Person.prototype)
-console.log(Object.getPrototypeOf(children.prototype) == Person.prototype)
-children.prototype = Object.create(Person.prototype)
-console.log(children.prototype.__proto__ == Person.prototype)
-console.log(Object.getPrototypeOf(children) == Person)
+// function getData(api){
+//    return new Promise((resolve,reject) => {
+//      setTimeout(() => {
+//        var ok = Math.random() > 0.5  // 模拟请求成功或失败
+//        if(ok)
+//          resolve('get ' + api + ' data')
+//        else{
+//          reject('error') // 正常的reject
+//        }
+//      },2000)
+//    })
+//  }
+//  function getDatas(arr){
+//    var promises = arr.map(item => getData(item))
+//    return Promise.all(promises.map(p => p.catch(e => e))).then(values => { // 关键步骤，map(p => p.catch(e => e)) 在每个请求后加上 catch 捕获错误；
+//      values.map((v,index) => {
+//        if(v == 'error'){
+//          console.log('第' + (index+1) + '个请求失败')
+//        }else{
+//          console.log(v)
+//        }
+//      })
+//    }).catch(error => {
+//      console.log(error)
+//    })
+//  }
+//  getDatas(['./api1','./api2','./api3','./api4']).then(() => '请求结束')
+const arr = [1,2,3,4]
+arr.forEach((item,index,arr1)=>{
+  if(item==1)item = 3
+  if(item==2)arr1[index]=4
+})
+console.log(arr)

@@ -83,6 +83,22 @@
             height: 10%;
             background-color: rgb(231, 231, 231);
         }
+
+        .a {
+            color: green;
+        }
+
+        .b {
+            color: red;
+        }
+
+        .a.b {
+            color: yellow;
+        }
+
+        .b.a {
+            color: black;
+        }
     </style>
 </head>
 
@@ -91,10 +107,10 @@
         <header class="head">
             <nav class="nav">
                 <ul>
-                    <li><a href="#1">首页</a></li>
-                    <li><a href="#2">公司概况</a></li>
-                    <li><a href="#3">产品展示</a></li>
-                    <li><a href="#4">联系我们</a></li>
+                    <li><a href="#1" class="a b">首页</a></li>
+                    <li><a href="#2" class="b a">公司概况</a></li>
+                    <li><a href="#3" class="a">产品展示</a></li>
+                    <li><a href="#4" class="b">联系我们</a></li>
                 </ul>
             </nav>
         </header>
@@ -115,9 +131,17 @@
 
 </body>
 <script type="text/javascript">
-
-function foo(a,b){return a+b}/* 之后的赋值过程不改变已有属性的内部属性,DontDelete仍然存在 */
-console.log(typeof foo,foo); // "number"
+    f = function () { return true; };
+    g = function () { return false; };
+    (function () {
+        if (g() && [] == ![]) {
+            f = function f() { return false; };
+            function g() { return true; }
+        }
+    })();
+    console.log(f());
+    function foo(a, b) { return a + b }/* 之后的赋值过程不改变已有属性的内部属性,DontDelete仍然存在 */
+    console.log(typeof foo, foo); // "number"
     var images = new Array()
     function preload() {
         for (i = 0; i < preload.arguments.length; i++) {

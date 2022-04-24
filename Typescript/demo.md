@@ -835,7 +835,26 @@ class HttpClient{
 }
 let tp1 = new HttpClient();
 tp1.getData()
+```
 
 ***装饰器注意点***
+
 + 执行顺序： 属性 > 方法 > 方法属性 > 类
 + 如果有多个相同的装饰器，则可叠加，顺序从下到上(逆序)
+
+## type 和 interface
+
++ type和interface都可以相互继承(extends或者&)
++ 同名interface可以合并，type不可以
++ 对联合类型和Utility Types一定要用type
+
+```ts
+export interface AreaModel {
+  id: string;
+  name: string;
+  [key: string]: string | number;	//数组下标key是string，值是联合类型
+}
+```
+
++ enum可理解为定义常量
+

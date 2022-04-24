@@ -137,7 +137,7 @@ if (!window.sessionStorage.getItem("tableData")){
 ```
 
 + for in遍历包含对象的数组 const index in this.tableData
-  + Index代表索引
+  + Index代表索引 注意会遍历原型链上的属性
 + for of遍历对象的数组 const data of this.tableData
   + data代表每一项对象数据
 + Js 数组删除元素使用splice（index,num）;
@@ -431,7 +431,16 @@ app.get('/user/queryUser1',(req,res)=>{
 即第一层基本类型是没有引用关系(重新给对象赋值也是深拷贝）,但第一层的对象里的内容有引用关系
 + object.create 原型链继承,也可以达到内容浅层拷贝。且可拷贝get和set
 + array.filter和array.map和array.from都是第一层深拷贝,对象里层是浅拷贝
-
+```ts
+let a = { foo: 'bar',aaa:[1,2,3]}   //第一层foo和aaa是深拷贝
+let b = {}                          //第二层'bar'是基本数据类型，[1,2,3]是数组保持引用则是浅拷贝
+Object.assign(b,a)
+b.foo = 'bar1'
+b.aaa[0]=4
+console.log(a,b)
+//{ foo: 'bar', aaa: [ 4, 2, 3 ] }
+//{ foo: 'bar1', aaa: [ 4, 2, 3 ] }
+```
 
 ## 深拷贝
 that.recordData=JSON.parse(JSON.stringify(that.firstRecord))
@@ -2356,3 +2365,166 @@ beforeRouteLeave(TO, FROM,next) {
     }
   },
 ```
+
+## 数组的find，findIndex，filter
++ 三者参数列表都是(fn,index,arr)，当fn返回true时获取该值，否则跳过
++ find是获取第一个fn返回true的**元素值(number)**
++ findIndex是获取第一个fn返回true的**元素索引(number)**
++ filter是获取fn返回true的所有元素的**数组(array)**
+
+
+## Proxy 代理
+```js
+let star = {
+    name: "mch",
+    age: 22,
+    phone: "123"
+}
+let handler = {
+    get(target, property) {
+        if(property === "phone") {
+            return 12345;
+        }else if(property === "price") {
+            return 1600000;
+        }else if(property === "age") {
+            return 3;
+        }
+        else {
+            return "不可透露";
+        }
+    },
+    set(target, property, value) {
+        if(property === "customPrice") {
+            if(value < 1600000) {
+                throw new Error("the price must be higher")
+            }else {
+                target[property] = value;
+                return true;
+            }
+        }else {
+            return "无法修改";
+        }
+    }
+
+let agent = new Proxy(star, handler);
+console.log(agent.phone);
+console.log(agent.price);
+
+console.log(agent.age);
+console.log(agent.customPrice)
+agent.customPrice = 1600000
+```
+
+>在 HTML 页面中，如果在执行脚本，页面的状态是不可相应的，直到脚本执行完成后，页面才变成可相应
+
+## 判断数据类型
++ typeof null - object
++ typeof NaN - number
++ == 操作符的强制类型转换规则？
++ 对于 == 来说，如果对比双方的类型不一样，就会进行类型转换。假如对比 x 和 y 是否相同，就会进行如下判断流程：
++ 首先会判断两者类型是否**相同，**相同的话就比较两者的大小；
++ 类型不相同的话，就会进行类型转换；
++ 会先判断是否在对比 null 和 undefined，是的话就会返回 true
++ 判断两者类型是否为 string 和 number，是的话就会将字符串转换为 number
++ 判断其中一方是否为 boolean，是的话就会把 boolean 转为 number 再进行判断
++ 判断其中一方是否为 object 且另一方为 string、number 或者 symbol，是的话就会把 object 转为原始类型再进行判断
+
+```ts
+console.log((2).constructor === Number); // true
+console.log((true).constructor === Boolean); // true
+console.log(('str').constructor === String); // true
+console.log(([]).constructor === Array); // true
+console.log((function() {}).constructor === Function); // true
+console.log(({}).constructor === Object); // true
+```
+
+```ts
+console.log(2 instanceof Number);                    // false
+console.log(true instanceof Boolean);                // false
+console.log('str' instanceof String);                // false
+
+console.log([] instanceof Array);                    // true
+console.log(function(){} instanceof Function);       // true
+console.log({} instanceof Object);                   // true
+```
+constructor有两个作用，一是判断数据的类型，二是对象实例通过 constrcutor 对象访问它的构造函数。需要注意，如果创建一个对象来改变它的原型，constructor就不能用来判断数据类型了
+
+>判断数组的方式有哪些
+
++ 通过Object.prototype.toString.call()做判断
++ Object.prototype.toString.call(obj).slice(8,-1) === 'Array';
++ obj.__proto__ === Array.prototype;
++ Array.isArrray(obj);
++ obj instanceof Array
++ Array.prototype.isPrototypeOf(obj)
+
+
++ 0.1+0.2 ! == 0.3，如何让其相等
+  + (n1 + n2).toFixed(2)
+
++ Object.is() 与比较操作符 “===”、“==” 的区别？
+
++ 使用双等号（==）进行相等判断时，如果两边的类型不一致，则会进行强制类型转化后再进行比较。
++ 使用三等号（===）进行相等判断时，如果两边的类型不一致时，不会做强制类型准换，直接返回 false。
++ 使用 Object.is 来进行相等判断时，一般情况下和三等号的判断相同，它处理了一些特殊的情况，比如 -0 和 +0 不再相等，两个 NaN 是相等的。
+
+>对于<和>比较符
+如果两边都是字符串，则比较字母表顺序：
+```ts
+'ca' < 'bd' // false
+'a' < 'b' // true
+```
+
+```ts
+var a = {}
+a > 2 // false
+```
+>其对比过程如下：
+a.valueOf() // {}, 上面提到过，ToPrimitive默认type为number，所以先valueOf，结果还是个对象，下一步
+a.toString() // "[object Object]"，现在是一个字符串了
+Number(a.toString()) // NaN，根据上面 < 和 > 操作符的规则，要转换成数字
+NaN > 2 //false，得出比较结果
+
+
+```ts
+var a = {name:'Jack'}
+var b = {age: 18}
+a + b // "[object Object][object Object]"
+```
+>a.valueOf() // {}，上面提到过，ToPrimitive默认type为number，所以先valueOf，结果还是个对象，下一步
+>a.toString() // "[object Object]"
+>b.valueOf() // 同理
+>b.toString() // "[object Object]"
+>a + b // "[object Object][object Object]"
+
+```ts
+let bar = { a: 1, b: 2 };
+let baz = Object.assign({}, bar); // { a: 1, b: 2 }
+//等价于
+let baz= {...bar}
+```
+
+## 类数组转换为数组
+1.通过 call 调用数组的 slice 方法来实现转换
+Array.prototype.slice.call(arrayLike);
+
+2.通过 call 调用数组的 splice 方法来实现转换
+Array.prototype.splice.call(arrayLike, 0);
+
+3.通过 apply 调用数组的 concat 方法来实现转换
+Array.prototype.concat.apply([], arrayLike);
+
+4.通过 Array.from 方法来实现转换
+Array.from(arrayLike)
+
+```ts
+function a(){
+   b=1      //左查询在全局生成全局变量
+   console.log(b,c,cd)//1 undefined [Function: cd]
+   var c=1
+   function cd(){}
+}
+a()
+console.log(b,c,cd) //1  c和cd not defined
+```
+不能访问函数内部的属性，若想要在内部创建全局变量则用隐式声明(左查询)

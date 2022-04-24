@@ -4,7 +4,6 @@ Function.prototype._bind = function(context, ...args) {
         return fn.apply(context,[...args, ...rest]);
     }
 }
-
 let foo = function(){
     console.log(arguments);
 }
