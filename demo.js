@@ -28,5 +28,5 @@ function aa () {
 aa.prototype.p = 'p'
 let b = new aa()
 for(const key in b){
-  console.log(key) + ''
+  console.log(key) + '222'
 }
