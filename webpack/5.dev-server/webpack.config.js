@@ -1,8 +1,16 @@
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: congsir
+ * @Date: 2022-04-25 22:25:32
+ * @LastEditors:
+ * @LastEditTime: 2022-07-15 10:31:27
+ */
 const path = require('path')
 const webpack = require("webpack")
 const glob = require('glob');
 const chalk = require('chalk')
-const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')        //进度条
 //const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')        //部分资源不需要打包，只需要拷贝时使用
@@ -19,20 +27,20 @@ module.exports = {
         path: path.join(__dirname, 'dist'),
         filename: '[name]-bundle.js'
     },
-    devServer:{
-        host:'localhost',
+    devServer: {
+        host: 'localhost',
         port: 3000,
-        hot:true,
+        hot: true,
         open: true,
         compress: true,
         //openPage:[]   打开浏览器后默认的页面，若为数组则打开多个页面
     },
-    resolve:{
-        alias:{
-            '@':path.join(__dirname, 'src'),
-            'cs':path.join(__dirname, 'src/css')
+    resolve: {
+        alias: {
+            '@': path.join(__dirname, 'src'),
+            'cs': path.join(__dirname, 'src/css')
         },
-        extensions:['.css', '.js','.less']
+        extensions: ['.css', '.js', '.less']
     },
     module: {
         rules: [
@@ -59,16 +67,16 @@ module.exports = {
                 type: 'asset',
                 parser: {
                     dataUrlCondition: {
-                      maxSize: 10000
+                        maxSize: 10000
                     }
-                  },
+                },
                 generator: {
                     filename: 'images/chunk-[contenthash:4][ext]'
                 }
-            },{
+            }, {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use:'babel-loader'
+                use: 'babel-loader'
             }
         ]
     },
@@ -82,6 +90,6 @@ module.exports = {
         }),
         new ProgressBarPlugin({
             format: ` build [:bar] ${chalk.green.bold(':percent')} (:elapsed seconds)`,
-          })
+        })
     ]
 }

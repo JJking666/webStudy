@@ -10,7 +10,7 @@
 //    b         c
 // d    e     f
 //          g   h
-// //广度优先遍历
+//广度优先遍历
 // let gdtree = (arr) => {
 //     let res = [];
 //     for (let i = 0; i < arr.length; i++) {
@@ -20,7 +20,7 @@
 // }
 // gdtree(arr);
 // console.log("--------------------");
-// //深度优先遍历（包括了前中后序遍历）
+//深度优先遍历（包括了前中后序遍历）
 // let sdtree = (arr) => {
 //     console.log(arr.id)
 //     if (arr.children) {

@@ -16,3 +16,23 @@ Function.prototype.myCall = function(context) {
   delete context.fn;
   return result;
 }
+
+
+Function.prototype.myCall2 = function(context,...args){
+    if(typeof this !== "function")return false
+    context = context || window
+    context.fn = this
+    console.log(...args,Object.prototype.toString.call(args),args,args.toString(),args.valueOf())
+    const result  = context.fn(...args)
+    delete context.fn
+    return result
+}
+
+function getName (a,b,c){
+    return a+b+c
+}
+
+const obj = {
+
+}
+console.log(getName.myCall2(obj,1,2,3))

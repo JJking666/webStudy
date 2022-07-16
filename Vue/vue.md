@@ -416,3 +416,73 @@ target： 鼠标触发的元素
 
 
 > 对于部分数据处理，可以使用filter过滤器，可以节省创建新变量的开销
+
+> 表單修飾符
+
++ lazy 标签失焦时在赋值，也就是在change事件后再赋值
++ trim 自动删除输入文本前后的空格
++ number 自动转成数字，即使用了parseFloat
+
+> 事件修飾符
+
++ stop 阻止冒泡
++ prevent 阻止默认行为
++ self 当事件target等于currentTarget时才会触发
++ once 只触发一次
++ capture 事件从元素顶层往下执行,即捕获阶段
++ passive 移动端进行onscroll时会变卡，而加上passive相当于有lazy的效果。
++ native 用来帮*组件*区分原生事件，因为组件上v-on只能触发自定义事件，故需要native来判断，注意：只能是组件上使用native，普通标签使用会使事件无效！
+
+> v-bind修饰符
+
++ async 用来给`prop`进行双向绑定
+```ts
+//父组件
+<comp :myMessage.sync="bar"></comp>
+//子组件
+this.$emit('update:myMessage',params);
+
+//以上这种方法相当于以下的简写
+
+//父亲组件
+<comp :myMessage="bar" @update:myMessage="func"></comp>
+func(e){
+    this.bar = e;
+}
+//子组件js
+func2(){
+    this.$emit('update:myMessage',params);
+}
+```
+  + 使用sync的时候，子组件传递的事件名格式必须为update:value，其中value必须与子组件中props中声明的名称完全一致
+
+  + 注意带有 .sync 修饰符的 v-bind 不能和表达式一起使用
+
+  + 将 v-bind.sync 用在一个字面量的对象上，例如 v-bind.sync=”{ title: doc.title }”，是无法正常工作的
+
+> 鼠标修饰符
+
++ left 左键点击
++ right 右键点击
++ middle 中键点击
+
+> 指令的作用
+
++ 给节点添加属性或样式或事件
++ 进行判断，如按钮的权限判断++
+
+> keep-alive
+
+keep-alive是一个抽象组件：它自身不会渲染一个DOM元素，也不会出现在父组件链中；使用keep-alive包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们。
+
+在动态组件中的应用
+```vue
+<keep-alive :include="whiteList" :exclude="blackList" :max="amount">
+     <component :is="currentComponent"></component>
+</keep-alive>
+在vue-router中的应用
+<keep-alive :include="whiteList" :exclude="blackList" :max="amount">
+    <router-view></router-view>
+</keep-alive>
+```
+include定义缓存白名单，keep-alive会缓存命中的组件；exclude定义缓存黑名单，被命中的组件将不会被缓存；max定义缓存组件上限，超出上限使用LRU的策略置换缓存数据。

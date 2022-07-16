@@ -42,3 +42,5 @@ var person1 = {
     lastName: "Gates",
 }
 console.log(person.fullName.myApply(person1))
+
+

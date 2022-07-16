@@ -572,3 +572,60 @@ router.beforeEach((to, from) => {
     }
   }
 })
+```
+
+> history和hash
+
+1.hash模式(http://www.test.com/#/)就是 Hash URL，当#后面的哈希值发生变化时，可以通过hashchange事件来监听到 URL 的变化，从而进行跳转页面，并且无论哈希值如何变化，服务端接收到的 URL 请求永远是http://www.test.com。Hash 模式相对来说更简单，并且兼容性也更好。每一次改变#后的部分，都会在浏览器的访问历史中增加一个记录，使用"后退"按钮，就可以回到上一个位置。
+
+2.history模式History模式是HTML5 新推出的功能，主要使用history.pushState和history.replaceState改变 URL。通过 History 模式改变 URL 同样不会引起页面的刷新，只会更新浏览器的历史记录。当用户做出浏览器动作时，比如点击后退按钮时会触发popState事件。
+
+两种路由模式的区别
+1.Hash 模式只可以更改 # 后面的内容，History 模式可以通过 API 设置任意的同源 URL
+2.History 模式可以通过 API 添加任意类型的数据到历史记录中，Hash 模式只能更改哈希值，也就是字符串
+3.Hash模式下， 多次刷新为通一个页面的话，记录只添加一次
+4.Hash 模式无需后端配置，并且兼容性好。History 模式在用户手动输入地址或者刷新页面的时候会发起 URL 请求，后端需要配置 index.html 页面用于匹配不到静态资源的时候
+
+hash 虽然出现在 URL 中，但不会被包括在 HTTP 请求中，对后端完全没有影响，因此改变 hash 不会重新加载页面。
+
+在 history 路由中，我们一定会使用window.history中的方法，常见的操作有：
+
++ back()：后退到上一个路由；
++ forward()：前进到下一个路由，如果有的话；
++ go(number)：进入到任意一个路由，正数为前进，负数为后退；
++ pushState(obj, title, url)：前进到指定的 URL，不刷新页面；
++ replaceState(obj, title, url)：用 url 替换当前的路由，不刷新页面；
+调用这几种方式时，都会只是修改了当前页面的 URL，页面的内容没有任何的变化。但前 3 个方法只是路由历史记录的前进或者后退，无法跳转到指定的 URL；而pushState和replaceState可以跳转到指定的 URL。如果有面试官问起这个问题“如何仅修改页面的 URL，而不发送请求”，那么答案就是这 5 种方法。
+
+可以说，hash 模式和 history 模式都属于浏览器自身的特性，Vue-Router 只是利用了这两个特性（通过调用浏览器提供的接口）来实现前端路由.
+
+> pushState 和 replaceState 两个方法跟 location.href 和 location.replace 两个方法有什么区别呢？应用的场景有哪些呢？
+
+location.href 和 location.replace 切换时要向服务器发送请求，而 pushState 和 replace 仅修改 url，除非主动发起请求；
+仅切换 url 而不发送请求的特性，可以在前端渲染中使用，例如首页是服务端渲染，二级页面采用前端渲染；
+可以添加路由切换的动画；
+在浏览器中使用类似抖音的这种场景时，用户滑动切换视频时，可以静默修改对应的 URL，当用户刷新页面时，还能停留在当前视频
+
+pushState方法、replaceState方法，只能导致history对象发生变化，从而改变当前地址栏的 URL，但浏览器不会向后端发送请求，也不会触发popstate事件的执行
+
+popstate事件的执行是在点击浏览器的前进后退按钮的时候，才会被触发
+
+
+> popstate
+
+每当激活同一文档中不同的历史记录条目时，popstate 事件就会在对应的 window 对象上触发。如果当前处于激活状态的历史记录条目是由 history.pushState() 方法创建的或者是由 history.replaceState() 方法修改的，则 popstate 事件的 state 属性包含了这个历史记录条目的 state 对象的一个拷贝。
+
+调用 history.pushState() 或者 history.replaceState() 不会触发 popstate 事件。popstate 事件只会在浏览器某些行为下触发，比如点击后退按钮（或者在 JavaScript 中调用 history.back() 方法）。即，在同一文档的两个历史记录条目之间导航会触发该事件。
+
+```ts
+window.onpopstate = function(event) {
+  alert("location: " + document.location + ", state: " + JSON.stringify(event.state));
+};
+
+history.pushState({page: 1}, "title 1", "?page=1");
+history.pushState({page: 2}, "title 2", "?page=2");
+history.replaceState({page: 3}, "title 3", "?page=3");
+history.back(); // 弹出 "location: http://example.com/example.html?page=1, state: {"page":1}"
+history.back(); // 弹出 "location: http://example.com/example.html, state: null
+history.go(2);  // 弹出 "location: http://example.com/example.html?page=3, state: {"page":3}
+```

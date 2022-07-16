@@ -228,6 +228,19 @@ method: 'get', // 默认值
 // `baseURL` 将自动加在 `url` 前面，除非 `url` 是一个绝对 URL。
 // 它可以通过设置一个 `baseURL` 便于为 axios 实例的方法传递相对URL
 baseURL: 'https://some-domain.com/api/',
+transformRequest: [function (data) {
+  // `transformRequest` 允许在向服务器发送前，修改请求数据
+  // 只能用在 'PUT', 'POST' 和 'PATCH' 这几个请求方法
+  //http.post('bb', {
+    //   'name': 'xiaoming',
+    //   'age': 12
+    // })
+  data.sex = 'man'
+  return qs.stringify(data)
+  // 结合create_headers里的内容，在这里又新增一条信息sex=man
+  // 因此network中查看的结果是：name=xiaoming&age=12&sex=man
+  //axios对transformRequest数组中函数的返回值有要求，必须是字符串、FormData或其他Buffer，如果返回的是个自己写的object，不识别当然就被处理成[Object Object]了,故加上qs.stringify或者JSON.stringify
+}]
 // `transformResponse` 在传递给 then/catch 前，允许修改响应数据
 transformResponse: [function (data) {
   // 对接收的 data 进行任意转换处理
@@ -448,4 +461,25 @@ axios.get('/user/12345')
   .catch(function (error) {
     console.log(error.toJSON());
   });
+```
+
+> 对不同请求设置不同headers
+
+```ts
+
+
+const service = axios.create({
+    ...
+    timeout: 30000,  // 请求 30s 超时
+	  headers: {
+        get: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+          // 在开发中，一般还需要单点登录或者其他功能的通用请求头，可以一并配置进来
+        },
+        post: {
+          'Content-Type': 'application/json;charset=utf-8'
+          // 在开发中，一般还需要单点登录或者其他功能的通用请求头，可以一并配置进来
+        }
+  },
+})
 ```

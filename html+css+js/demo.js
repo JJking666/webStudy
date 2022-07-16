@@ -116,9 +116,3 @@
 //    })
 //  }
 //  getDatas(['./api1','./api2','./api3','./api4']).then(() => '请求结束')
-const arr = [1,2,3,4]
-arr.forEach((item,index,arr1)=>{
-  if(item==1)item = 3
-  if(item==2)arr1[index]=4
-})
-console.log(arr)

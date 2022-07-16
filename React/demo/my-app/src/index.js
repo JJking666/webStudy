@@ -11,14 +11,17 @@ class EssayForm extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-  handleChange(event) {
-    this.setState({value: event.target.value});
-  }
+//#start
+//   45
+//   handleChange(event) {
+//     this.setState({value: event.target.value});
+//   }
+//#endstart
+//   handleSubmit(event) {
+//     alert('提交的文章: ' + this.state.value);
+//     event.preventDefault();
+//   }
 
-  handleSubmit(event) {
-    alert('提交的文章: ' + this.state.value);
-    event.preventDefault();
-  }
   render() {
     return (
       <form onSubmit={handleSubmit}>

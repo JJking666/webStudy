@@ -1,172 +1,97 @@
+<!--
+ * @Descripttion:
+ * @version:
+ * @Author: congsir
+ * @Date: 2022-04-25 22:25:01
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-07-14 16:58:42
+-->
 <!DOCTYPE html>
-<html>
-<meta name="viewport" content=" initial-scale=0.5">
+<html lang="en">
 
 <head>
-    <style>
-        @media screen and (max-width: 960px) {
-            body {
-                background-color: darkgoldenrod;
-            }
-        }
-
-        @media screen and (max-width: 480px) {
-            body {
-                background-color: lightgreen;
-            }
-        }
-
-        @import url(./go.css);
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .main {
-            width: 100%;
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        #demo {
+            /* background:no-repeat url("./背景.jpg") 100px 0; */
+            position: relative;
+            width: 100vw;
             height: 100vh;
+            /* background-color: red; */
         }
 
-        .head {
-            position: sticky;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 10%;
-            background-color: rgb(179, 247, 243);
+        #son {
+            /* width: 50px; */
+            height: 50px;
+            background-color: blueviolet;
+            /* flex-basis: auto; */
+            margin-top: 50px;
+            border: 1px solid black;
+
         }
 
-        .nav ul li {
+        #son+p {
+            color: white;
+        }
+
+        .img {}
+
+        #cir {
+            width: 100vw;
+            height: 100px;
+            /* border: 1px solid black; */
+            background-color: rgb(233, 128, 233);
+            position: relative;
             display: inline-block;
         }
 
-        .nav ul li a {
-            text-decoration: none;
-        }
-
-        .content {
-            width: 100%;
-            height: 80%;
-            display: flex;
-            align-items: stretch;
-        }
-
-        .left {
-            height: 20%;
-            flex-grow: 1;
-            flex-shrink: 1;
-            flex-basis: 50%;
-            background-color: rgb(204, 238, 148);
-        }
-
-        .middle {
-            height: 30%;
-            flex-grow: 1;
-            flex-shrink: 1;
-            flex-basis: 50%;
-            align-self: flex-end;
-            background-color: rgb(234, 142, 247);
-        }
-
-        .right {
-            height: 50%;
-            flex-grow: 1;
-            flex-shrink: 1;
-            flex-basis: 50%;
-            background-color: rgb(15, 248, 244);
-        }
-
-        .footer {
-            width: 100%;
-            height: 10%;
-            background-color: rgb(231, 231, 231);
-        }
-
-        .a {
-            color: green;
-        }
-
-        .b {
-            color: red;
-        }
-
-        .a.b {
-            color: yellow;
-        }
-
-        .b.a {
-            color: black;
+        .demo {
+            width: 50px;
+            height: 12px;
+            background-color: rebeccapurple;
+            border: 100px solid blue;
+            border-bottom-color: red;
+            border-left: 0;
+            border-top: 0;
         }
     </style>
 </head>
 
 <body>
-    <div class="main">
-        <header class="head">
-            <nav class="nav">
-                <ul>
-                    <li><a href="#1" class="a b">首页</a></li>
-                    <li><a href="#2" class="b a">公司概况</a></li>
-                    <li><a href="#3" class="a">产品展示</a></li>
-                    <li><a href="#4" class="b">联系我们</a></li>
-                </ul>
-            </nav>
-        </header>
-        <main class="content">
-            <aside class="left">left</aside>
-            <article class="middle">
-                flex-grow: 1;
-                flex-shrink: 1;
-                flex-basis: 50%;
-                background-color: rgb(234, 142, 24
-            </article>
-            <aside class="right">right</aside>
-        </main>
-        <footer class="footer">
-            页面底部
-        </footer>
-    </div>
+    <div id="demo">
+        <!-- 1111 -->
+        <!-- <image class="img" src="./背景.jpg" mode="aspectFit|aspectFill|widthFix" lazy-load="false" binderror="" bindload=""> -->
 
+        <div class="demo">node
+        </div>
+
+        <div id="cir" onclick="console.log('1')">
+            <div id="son" onclick="console.log('2')">
+                <p>1111</p>2222<p>1111</p>
+            </div>
+            <div id="son" onclick="console.log('3')">
+                <p>2222222222222222</p>2222<p>1111</p>
+            </div>
+        </div>
+
+        <!-- <div id="son"><p>22222222</p>2222<p>1111</p></div>
+        <p>333</p><p>444</p> -->
+    </div>
 </body>
 <script type="text/javascript">
-    f = function () { return true; };
-    g = function () { return false; };
-    (function () {
-        if (g() && [] == ![]) {
-            f = function f() { return false; };
-            function g() { return true; }
-        }
-    })();
-    console.log(f());
-    function foo(a, b) { return a + b }/* 之后的赋值过程不改变已有属性的内部属性,DontDelete仍然存在 */
-    console.log(typeof foo, foo); // "number"
-    var images = new Array()
-    function preload() {
-        for (i = 0; i < preload.arguments.length; i++) {
-            images[i] = new Image()
-            images[i].src = preload.arguments[i]
-        }
+    window.onload = function () {
+        const son = document.getElementById("son");
+        console.dir(son)
+        const tap2 = document.getElementById("tap");
+        tap2.addEventListener("click", tap)
     }
-    preload(
-        "./aa.jpg",
-    )
-        //--><!]]>
-</script>
-<script type="text/javascript">
-    console.log(window)
-    window.addEventListener('load', function () {
-        Notification.requestPermission(function (status) {
-            console.log(status)
-            var n = new Notification('sb')
-            // 这将使我们能在 Chrome/Safari 中使用 Notification.permission
-            if (Notification.permission !== status) {
-                Notification.permission = status;
-                console.log(Notification.permission)
-            }
-        });
-    });
+    function tap(e) {
+        e = e || window.event;
+        console.dir(e)
+    }
 </script>
 
 </html>
