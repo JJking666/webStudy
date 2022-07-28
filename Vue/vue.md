@@ -486,3 +486,7 @@ keep-alive是一个抽象组件：它自身不会渲染一个DOM元素，也不�
 </keep-alive>
 ```
 include定义缓存白名单，keep-alive会缓存命中的组件；exclude定义缓存黑名单，被命中的组件将不会被缓存；max定义缓存组件上限，超出上限使用LRU的策略置换缓存数据。
+
+> watch
+
++ watch在开启deep后，可以监听到嵌套对象数据的变化，但监听不到数组长度和设置值的变化，必须使用push等api

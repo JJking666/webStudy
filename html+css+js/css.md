@@ -124,6 +124,7 @@ _外边距合并：当两个垂直外边距相遇时，它们将形成一个外�
 - static:默认情况下元素都是 static，元素不会以任何特殊方式定位；它始终根据页面的正常流进行定位，静态定位的元素不受 top、bottom、left 和 right 属性的影响。
 - relation：元素相对于其正常位置进行定位。设置相对定位的元素的 top、right、bottom 和 left 属性将导致其偏离其正常位置进行调整。
 - fixed：元素是相对于视口定位的，这意味着即使滚动页面，它也始终位于同一位置。
+  - 如果祖先元素设置了transform不为none，则定义视口修改为该祖先(即fixed失效情况)
 - absolute：元素相对于最近的定位祖先元素（非 static 一般是 relation）进行定位，如果绝对定位的元素没有祖先，它将使用文档主体（body），并随页面滚动一起移动。
 - sticky：元素根据用户的滚动位置进行定位。（一般用于导航，一开始在某个位置，向下移动页面后固定在页面上方）可设置 top 等（必须指定一个）
 - 所有定位属性：bottom，top，left，right，clip（裁剪），top，position，z-index
@@ -642,3 +643,77 @@ height、width属性的百分比依托于父标签的宽高，但是其他盒子
     padding: 0 2px 0 10px;
 }
 ```
+
+> 伪元素的优缺点
+
++ 优点
+  + 减少dom节点数，
+  + 让css解决部分html和js问题
+  + 有利于seo
++ 缺点
+  + 不是真正的页面元素，不会出现在dom树，无法使用js操作，
+  + 无法对它设置属性或事件
+
+> colgroup
+
++ 只能在table中使用，用来控制列
++ span是横跨列数，align是内容在水平的位置，vertical是水平的位置
++ 可以添加style来对列进行操作
+
+```ts
+<table width="100%" border="1">
+  <colgroup span="2" align="left"></colgroup>
+  <colgroup align="right" style="color:#0000FF;"></colgroup>
+  <tr>
+    <th>ISBN</th>
+    <th>Title</th>
+    <th>Price</th>
+  </tr>
+  <tr>
+    <td>3476896</td>
+    <td>My first HTML</td>
+    <td>$53</td>
+  </tr>
+</table>
+```
+
+> 常用布局区别
+
+https://juejin.cn/post/6844904202641080333
+
+> 百分比计算
+
+https://zhuanlan.zhihu.com/p/93084661
+
+> 获取距离
+
+
+e.pageX、e.clientX、e.screenX、e.offsetX的区别以及元素的一些CSS属性
+
+e.pageX，e.pageY：返回的值是相对于文档的定位，文档的左上角为(0,0)，向右为正，向下为正，IE不支持；
+
+e.clientX，e.clientY：返回的值是相对于屏幕可见区域的坐标，如果页面有滚动条，呗滚动条隐藏的那部分不进行计算，也可以说是相对于屏幕的坐标，但是不计算上方的工具栏；
+
+e.screenX，e.screenY：返回的是相对于屏幕的坐标，浏览器上面的工具栏；
+
+e.offsetX，e.offsetY：返回的是相对于第一个定位父元素的坐标，和e.pageX，e.pageY作用相同，但是只有IE支持。
+
+.scrollTop()：如果一个元素有滚动条，则返回的是滚动条滚动的长度；
+同理.scrollLeft()
+
+.width()：返回的是元素的宽度，这个宽度不包含padding，border，margin，同理.height()；支持写操作，$n1.height( 20 );
+
+
+.innerWidth()：返回的是元素的宽度，这个宽度包含padding，但不包含border与margin，同理.innerHeight()；支持写操作，$n1.innerWidth( 20 );
+
+.outerWidth()：返回的是元素的宽度，这个宽度包含padding，border，但不包含margin，同理.outerHeight()；
+
+.outerWidth(true)：此时返回的宽度也包含margin了
+
+https://blog.csdn.net/stanwuc/article/details/101068744
+
+https://www.cnblogs.com/jsydb/p/12344622.html
+
+> margin:auto;
+
+此时垂直方向margin为设置为0，水平为居中

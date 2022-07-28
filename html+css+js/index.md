@@ -3920,3 +3920,44 @@ const num2 = calc(100, 200) // 缓存得到的结果
 
 ***对当前页面需要的资源，使用 preload 进行预加载，对其它页面需要的资源进行 prefetch 预加载。***
 
+> generator
+
+注意字符串数组会被遍历每个元素
+```ts
+function* g3() {
+  yield* [1, 2];
+  yield* '34';
+  yield* Array.from(arguments);
+}
+
+const iterator = g3(5, 6);
+
+console.log(iterator.next()); // {value: 1, done: false}
+console.log(iterator.next()); // {value: 2, done: false}
+console.log(iterator.next()); // {value: "3", done: false}
+console.log(iterator.next()); // {value: "4", done: false}
+console.log(iterator.next()); // {value: 5, done: false}
+console.log(iterator.next()); // {value: 6, done: false}
+console.log(iterator.next()); // {value: undefined, done: true}
+```
+
+如果有return的值，那么最后一次会返回return值和done：true
+```ts
+function* g4() {
+  yield* [1, 2, 3];
+  return 'foo';
+}
+
+function* g5() {
+  const g4ReturnValue = yield* g4();
+  console.log(g4ReturnValue) // 'foo'
+  return g4ReturnValue;
+}
+
+const iterator = g5();
+
+console.log(iterator.next()); // {value: 1, done: false}
+console.log(iterator.next()); // {value: 2, done: false}
+console.log(iterator.next()); // {value: 3, done: false} done is false because g5 generator isn't finished, only g4
+console.log(iterator.next()); // {value: 'foo', done: true}
+```
