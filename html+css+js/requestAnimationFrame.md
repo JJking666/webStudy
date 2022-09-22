@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion:
+ * @version:
+ * @Author: congsir
+ * @Date: 2022-04-25 22:25:01
+ * @LastEditors:
+ * @LastEditTime: 2022-08-02 11:08:27
+-->
 ## setTimeout
 setTimeout 其实就是通过设置一个间隔时间来不断的改变图像的位置，从而达到动画效果的。但我们会发现，利用seTimeout实现的动画在某些低端机上会出现卡顿、抖动的现象。 这种现象的产生有两个原因：
 
@@ -11,7 +19,7 @@ setTimeout的执行时间并不是确定的。在Javascript中， setTimeout 任
 与setTimeout相比，requestAnimationFrame最大的优势是由系统来决定回调函数的执行时机。具体一点讲，如果屏幕刷新率是60Hz,那么回调函数就每16.7ms被执行一次，如果刷新率是75Hz，那么这个时间间隔就变成了1000/75=13.3ms，换句话说就是，requestAnimationFrame的步伐跟着系统的刷新步伐走。它能保证回调函数在屏幕每一次的刷新间隔中只被执行一次，这样就不会引起丢帧现象，也不会导致动画出现卡顿的问题。
 
 这个API的调用很简单，如下所示：
-```
+```ts
 var progress = 0;
 //回调函数
 function render() {

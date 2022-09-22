@@ -1,0 +1,85 @@
+<!--
+ * @Descripttion:
+ * @version:
+ * @Author: congsir
+ * @Date: 2022-08-09 11:13:08
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-08-15 10:31:19
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .outer {
+            position: relative;
+            height: 100px;
+            display: flex
+        }
+
+        .left {
+            flex: 1;
+            flex-basis: 100px;
+            height: 100px;
+            background: tomato;
+        }
+
+        .right {
+            flex: 1;
+
+            flex-basis: 200px;
+            height: 100px;
+            background: gold;
+        }
+
+        .center {
+            flex: 1;
+
+            height: 100px;
+            background: lightgreen;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="outer" onclick="console.log(1)">
+        <div class="left" onclick="console.log(2)">
+
+        </div>
+        <div class="center">
+
+        </div>
+        <div class="right">
+
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var a = 1;
+    let b = 2;
+    console.log(this.a);
+    console.log(this)
+    console.log(this.b);
+    (function () {
+
+        // var a = 1
+        // const b = {
+        //     a: 10,
+        //     f1: function f1() {
+        //         return this.a
+        //     },
+        //     f2: () => {
+        //         return this.a
+        //     },
+        // }
+        // console.log(b.f1(), b.f2(), window.a)
+        // const c = b.f1, d = b.f2
+        // console.log(c(), d())
+    })()
+</script>
+
+</html>

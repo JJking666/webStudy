@@ -1,12 +1,12 @@
 # ***Typescript***
 ## 数据类型
-|  类型  |  值  |
-|  ---  |  ---  |
-|  number  |  数值  |
-|  string  |  字符串  |
-|  undefined  |  未赋值  |
-|  any  |  任何值
-|  void  |  空值  |
+| 类型      | 值     |
+| --------- | ------ |
+| number    | 数值   |
+| string    | 字符串 |
+| undefined | 未赋值 |
+| any       | 任何值 |
+| void      | 空值   |
 ## ReadonlyArray<T>
 ***ReadonlyArray<T>类型，它与Array<T>相似，只是把所有可变方法去掉了，因此可以确保数组创建后再也不能被修改：***
 ```ts
@@ -858,3 +858,88 @@ export interface AreaModel {
 
 + enum可理解为定义常量
 
+> any与unknwon的区别
+
++ 使用any相当于直接放弃类型检查，unknown相对严格
++ any类型的变量可以赋任何类型的值，而unknown类型的变量只能用any和unknown的变量赋值
++ 在联合类型中，unknown会吸收任何类型(any除外)
+
+```ts
+type UnionType1 = unknown | null;       // unknown
+type UnionType2 = unknown | undefined;  // unknown
+type UnionType3 = unknown | string;     // unknown
+type UnionType4 = unknown | number[];   // unknown
+```
+
++ 在交叉类型中,unknown会被吸收
+
+```ts
+type IntersectionType1 = unknown & null;       // null
+type IntersectionType2 = unknown & undefined;  // undefined
+type IntersectionType3 = unknown & string;     // string
+type IntersectionType4 = unknown & number[];   // number[]
+type IntersectionType5 = unknown & any;        // any
+```
+
+
+> 可以用到void 有以下几种情况
+
++ 函数没写return
++ 只写了 return， 没有具体的返回值
++ return 的是 undefined
+
+注意返回值若符合上面3条,则不能用undefined约束，只能any和void
+```ts
+function add(a:number, b:number): undefined { // 这里会报错
+  console.log(a,b)
+}
+```
+
+> 非空断言操作符！
+
+```ts
+//忽略 undefined 和 null 类型
+function myFunc(maybeString: string | undefined | null) {
+  // Type 'string | null | undefined' is not assignable to type 'string'.
+  // Type 'undefined' is not assignable to type 'string'.
+  const onlyString: string = maybeString; // Error
+  const ignoreUndefinedAndNull: string = maybeString!; // Ok
+}
+
+//调用函数时忽略 undefined 类型
+type NumGenerator = () => number;
+
+function myFunc(numGenerator: NumGenerator | undefined) {
+   // Object is possibly 'undefined'.
+   // Cannot invoke an object which is possibly 'undefined'.
+   const num1 = numGenerator(); // Error
+   const num2 = numGenerator!(); //OK
+}
+```
+
+> keyof 将一个对象`key`的约束分解为多个联合
+
+```ts
+// ◆ 第一种：获取某个类型的属性名构成新的类型
+type Point = { x: number; y: number }
+type P = keyof Point
+let p1: P = 'y'
+let p2: P = 'x'
+// ◆ 第二种:获取某个对象的属性名构成新的类型
+type T = keyof { a: 1, b: 2 }
+let keyName: T = 'b'
+```
+
+> typeof和type结合
+
+用来反推变量类型，简化类型书写
+
+```ts
+const res = { name: 'Lucy', age: 18 }
+type StuType = typeof res
+function fn(obj: StuType) {
+    // 这里写obj. 有 name 和 age 的提示了
+    console.log(obj.name)
+}
+fn(res)
+```

@@ -118,9 +118,7 @@ ocument.body.appendChild(p);
 - v-bind 动态属性绑定
 - v-model 数据双向绑定
 - v-once 数据只能初始化一次 之后不改变
--
 - 没有插值等标签加入 v-pre 加快编译
--
 - 给对象添加属性 this.$set(xxx,’isEdit’,false)
 
 - 判断组件有无该属性：hasOwnproperty(‘ xxx’ ) 注意判断原型链上的属性为 false
@@ -157,10 +155,6 @@ if (!window.sessionStorage.getItem("tableData")) {
 - Js 数组删除元素使用 splice（index,num）;
 
   - 若使用 delete（index）只会使其变为 undefined
-
-- Vue2 的 v-for 无法检测到数组和对象的变化,如以下删除数组中元素不会刷新视图,可以使父组件重新渲染的方法让他重新渲染 DOM。
-
-- 组件 css 修改,由于 style 加上 scoped 无法是页面修改,可以使用父元素类名+/deep/+子元素类名或者使用::v-deep
 
 ### Vue 表单数据及规则属性名应相同,否则会匹配规则一直报错未输入
 
@@ -3444,7 +3438,7 @@ proxy.foo
 
 > es6
 
-+ 输入的变量都是只读的，不允许修改，但是如果是对象，允许修改属性
++ 输入的变量都是只读的，不允许修改，但是如果是对象，允许修改属性(不建议修改，会使数据混乱)
 
 可动态加载
 ```ts
@@ -3897,7 +3891,7 @@ const num2 = calc(100, 200) // 缓存得到的结果
   <link rel="stylesheet" href="style.css">
 </head>
 ```
-> preload
+> prefetch
 
 与 preload 一样，都是对资源进行预加载，但是 prefetch 加载的资源一般不是用于当前页面的，即未来很可能用到的这样一些资源，简单点说就是其他页面会用到的资源。当然，prefetch 不会像 preload 一样，在页面渲染的时候加载资源，而是利用浏览器空闲时间来下载。当进入下一页面，就可直接从 disk cache 里面取，既不影响当前页面的渲染，又提高了其他页面加载渲染的速度。
 
@@ -3960,4 +3954,37 @@ console.log(iterator.next()); // {value: 1, done: false}
 console.log(iterator.next()); // {value: 2, done: false}
 console.log(iterator.next()); // {value: 3, done: false} done is false because g5 generator isn't finished, only g4
 console.log(iterator.next()); // {value: 'foo', done: true}
+```
+
+> map和对象
+
++ map的键可以存任意类型，对象的键只能存字符串和symbol(存一个对象会转换为字符串)
++ map遍历的顺序为插入顺序，而对象不一定(当下标为0，1，2时会以下标数字排序)
++ map的键值对数量可以用size获取，对象只能手算
++ map会键名冲突，而对象的属性可能会覆盖原型属性
+
+```ts
+const map = new Map()
+map.set({}, '1r')
+console.log(map.get({})) //undefined 因为不是同个引用
+```
+
+> ??逻辑符和?.
+
+前者直接判断是否null或undefined,如果是直接返回??后的值
+后者判断是否有该属性，有的话继续访问最终返回，没有的话直接返回undefined
+
+```ts
+const a = { foo: 'bar' }
+const b = a?.foo?.bar
+console.log(a ?? '2', b)
+//{ foo: 'bar' } undefined
+```
+
+> 数字分隔符_
+
+```ts
+const num1 = 1_234_567;
+// 等价
+const num1 = 1234567;
 ```

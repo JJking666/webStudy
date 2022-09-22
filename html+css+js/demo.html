@@ -4,7 +4,7 @@
  * @Author: congsir
  * @Date: 2022-04-25 22:25:01
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-28 23:12:30
+ * @LastEditTime: 2022-07-31 13:44:43
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -57,26 +57,56 @@
             width: 50px;
             height: 50px;
         }
+
+        #p {
+            width: 300px;
+            height: 300px;
+            background-color: steelblue;
+            /* margin-top: -10px; */
+            /* position: fixed; */
+            display: inline-block;
+
+        }
+
+        #c {
+            width: 100px;
+            height: 100px;
+            margin-top: 50px;
+            background-color: slateblue
+        }
     </style>
 </head>
 
 <body>
+    <div id="p" sex="man" data-sex="girl" name="cy">
+        demo
+        <div id="c">
+            demo
+        </div>
+        demo
+    </div>
     <div id="demo">
-        <!-- 1111 -->
-        <!-- <image class="img" src="./背景.jpg" mode="aspectFit|aspectFill|widthFix" lazy-load="false" binderror="" bindload=""> -->
+        demo
         <div id="cir" onclick="console.log('1')">
             <div id="son" onclick="console.log('2')">
                 sssss
             </div>
         </div>
+        demo
+
     </div>
 </body>
 <script type="text/javascript">
     window.onload = function () {
-        const son = document.getElementById("son");
+        // document.write('gogogo')
+        const son = document.querySelector("#p")
         console.dir(son)
-        const tap2 = document.getElementById("tap");
-        tap2.addEventListener("click", tap)
+
+        console.log(son.dataset['sex'], son.getAttribute("data-Sex"), son.getAttribute("sex"))
+        // const divs = document.querySelectorAll("div");
+        // console.dir(divs)
+        document.write('gogogo')
+
     }
     function tap(e) {
         e = e || window.event;

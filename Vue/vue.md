@@ -490,3 +490,21 @@ include定义缓存白名单，keep-alive会缓存命中的组件；exclude定�
 > watch
 
 + watch在开启deep后，可以监听到嵌套对象数据的变化，但监听不到数组长度和设置值的变化，必须使用push等api
+
+> v-if，v-show，动态组件区别
+
+v-if是组件每一次显示需要重新渲染，卸载时不出现在dom树
+
+v-show是组件只需要渲染一次就一直在dom树，通过display：none进行显示隐藏
+
+动态组件是组件只渲染一次之后通过keep-alive进行缓存，后续不需要再渲染，而且可以使用生命周期函数
+```ts
+<keep-alive :include="['a', 'b']">
+  <component :is="view"></component>
+</keep-alive>
+```
+设置了 keep-alive 缓存的组件，会多出两个生命周期钩子（activated与deactivated）：
+
+首次进入组件时：`beforeRouteEnter > beforeCreate > created> mounted > activated > ... ... > beforeRouteLeave > deactivated`
+
+再次进入组件时：`beforeRouteEnter >activated > ... ... > beforeRouteLeave > deactivated`

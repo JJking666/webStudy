@@ -4,7 +4,7 @@
  * @Author: congsir
  * @Date: 2022-04-25 22:25:01
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-28 14:11:09
+ * @LastEditTime: 2022-09-18 18:10:37
  */
 
 // console.log(1)
@@ -460,7 +460,687 @@
 // let a = -1
 // console.log(+a)
 
-let a = [41, 3, 3, 2, 3, 6]
-let b = a.pop()
-console.log(b)
-console.log(undefined + 1)
+// const map = new Map();
+
+
+// map.set('2', 'b')
+// map.set('1', 'a')
+// map.set('3', 'c')
+// const map1 = new Map(map);
+// map1.set('5', 'r')
+// map1.set({}, '1r')
+
+// const a = {
+//     '2': 'b',
+//     '1': 'a',
+//     '3': 'c'
+// }
+
+// a[{} + 1] = '11{}'
+// // for (const c of map1) {
+// //     console.log(c)
+// // }
+
+
+
+// // for (const c of map) {
+// //     console.log(c)
+// // }
+// let mySet = new Set();
+
+// mySet.add(1); // Set(1) {1}
+// mySet.add(5);
+// mySet.add(+0);
+// mySet.add(-0);
+
+// console.log(map1.get({}), a[{} + 1]);
+
+// Function.prototype.a = () => console.log(1)
+// Object.prototype.b = () => console.log(2)
+// function A() { }
+// const a = new A()
+// console.log(A.prototype)//{}
+// a.b()
+// A.a()  //报错  a - A.prototype - Object.prototype - null
+// A.b()  //报错  a - A.prototype - Object.prototype - null
+
+
+// class demo {
+//     static obj = new demo();
+
+//     demo() {
+//         this.name = 'a';
+//         console.log(this)
+//     }
+//     static getInstance() {
+//         return this.obj
+//     }
+//     say() {
+//         console.log('222', demo.obj.name)
+//     }
+// }
+// const a = demo.getInstance()
+// a.say();
+// class SingleObject {
+
+//     //创建 SingleObject 的一个对象
+//     static instance = new SingleObject();
+
+//     //让构造函数为 private，这样该类就不会被实例化
+//     SingleObject() { }
+
+//     //获取唯一可用的对象
+//     static getInstance() {
+//         return this.instance;
+//     }
+
+//     showMessage() {
+//         console.log("Hello World!");
+//     }
+// }
+// const a = SingleObject.getInstance();
+// a.showMessage()
+
+
+
+// function gb_sort(arr) {
+//     if (arr.length <= 1) return arr;
+//     const midIndex = Math.floor(arr.length / 2)
+//     return sort(gb_sort(arr.slice(0, midIndex)), gb_sort(arr.slice(midIndex)))
+//     function sort(a, b) {
+//         let i = 0, j = 0, res = []
+//         while (i != a.length && j != b.length) {
+//             if (a[i] <= b[j]) res.push(a[i++])
+//             else res.push(b[j++])
+//         }
+//         if (i != a.length) res = res.concat(a.slice(i))
+//         if (j != b.length) res = res.concat(b.slice(j))
+//         return res
+//     }
+// }
+// console.log(gb_sort([52, 8, 4, 3, 5, 1, 8, 11]))
+
+// const i = 1100;
+// console.log(new Set(1100))
+
+
+
+
+
+// this.a = 1
+// const b = {
+//     a: 10,
+//     f0: {
+//         a: 100,
+//         f11: function () {
+//             console.log(this + "!")
+//             return this.a
+//         },
+//         f00: () => {
+//             return this.a
+//         }
+//     },
+//     f1: function () {
+//         console.log(this + "!")
+//         return this.a
+//     },
+//     f2: () => {
+//         return this.a
+//     },
+// }
+// console.log(b.f1(), b.f2(), b.f0.f00())
+// const c = b.f1, d = b.f2
+// console.log(c(), d())
+// var b = 20;
+// (function n() {
+//     b = 120
+//     console.log(b)
+// })()
+// console.log(2, b)
+
+
+// const obj = {
+//     a: 1,
+//     b: 23
+// }
+// console.log(Object.prototype.toString.call(obj), obj, JSON.stringify(obj), Promise.resolve(2))
+
+// const person = { name: 'qwe' }
+// // person.name = 'asd'
+// Object.defineProperty(person, 'name', { value: 'zxc' })
+
+// console.log(person)
+
+
+
+// function getLongestPalindrome(str) {
+//     // write code here
+//     const len = str.length
+//     let max = -1, now = ''
+//     for (let i = 0; i < len; i++) {
+//         let j = 0
+//         if (max >= len - i) break
+//         while (i - j > 0 && i + j < len) {
+//             let item = str.slice(i - j, i + j + 1)
+//             if (item != item.split('').reverse().join('')) {
+//                 break
+//             }
+//             if (2 * j + 1 > max) {
+//                 max = 2 * j + 1
+//                 now = item
+//             }
+//             j++
+//         }
+//         j = 0
+//         if (str[i + 1] && str[i] == str[i + 1]) {
+//             while (i - j >= 0 && i + j + 1 < len) {!
+//                 let item = str.slice(i - j, i + j + 2)
+//                 console.log(item)
+//                 if (item != item.split('').reverse().join('')) {
+//                     break
+//                 }
+//                 if (2 * j + 2 > max) {
+//                     max = 2 * j + 2
+//                     now = item
+//                 }
+//                 j++
+//             }
+//         }
+//     }
+//     console.log(max, now)
+// }
+
+// console.log(getLongestPalindrome("cb3eeee3bcd"))
+
+
+// "ACDEFHGB", "DECAHFBG"
+
+// "EDCHBGFA"
+// function getPostOrderOfTree(preStr, midStr) {
+//     // write code here
+//     if (preStr.length == 0) return ''
+//     const node = preStr[0], index = midStr.indexOf(preStr[0])
+//     const nowLMid = midStr.slice(0, index), nowLPre = preStr.slice(1, 1 + nowLMid.length)
+//     const nowRPre = preStr.slice(nowLPre.length + 1), nowRMid = midStr.slice(index + 1)
+//     const left = getPostOrderOfTree(nowLPre, nowLMid), right = getPostOrderOfTree(nowRPre, nowRMid)
+//     console.log(left, node, 1, right, left + node + right)
+//     return left + right + node
+// }
+// console.log(getPostOrderOfTree("ACDEFHGB", "DECAHFBG"))
+// a = 3
+// {
+//     this.a = 1
+//     let a = 4
+//     const f1 = function () {
+//         console.log(this.a)
+//     }
+//     const f2 = () => {
+//         console.log(this.a)
+//     }
+//     f1()
+//     f2()
+// }
+// function fn() {
+//     this.a = 1
+//     this.f1 = function () {
+//         console.log(this.a)
+//     }
+//     this.f2 = () => {
+//         console.log(this.a)
+//     }
+// }
+// function a() { }
+// const obj = new a();
+// console.log(obj.__proto__, Function.prototype.prototype, obj.constructor)
+// console.log(obj.isPrototypeOf(a))
+// a = 1
+// function f() {
+//     console.log(a)
+//     let a = 3
+//     console.log(a)
+//     function a() { }
+//     console.log(a)
+// }
+// f()
+// function f() {
+//     return new Promise(function (resolve, reject) {
+//         setTimeout(() => {
+//             console.log(3)
+//             resolve()
+//         }, 1000)
+//     })
+// }
+// async function f1() {
+//     console.log(1)
+//     await f();
+//     console.log(2)
+//     await f();
+//     console.log(2.5)
+//     await f();
+// }
+// f1()
+// while(1){
+//     new Promise((res,rej)=>{
+//         setTimeout(()=>{
+//             console.log('red')
+//             res()
+//     }).then(()=>{
+//         new Promise((res, rej) => {
+//             setTimeout(() => {
+//                 console.log('yellow')
+//                 res()
+//             })
+//     })
+// })
+// }
+
+// //1.防抖
+// let p = null;
+
+// function dfDemo(time) {
+//     if (p) {
+//         clearTimeout(p);
+//     }
+//     p = setTimeout(() => {
+//         doThings()
+//     }, time)
+// }
+
+// //2.字符串最长不重复子串
+
+// function test(str) {
+//     const map = new Map(), len = str.length
+//     let res = [], left = 0, right = 0, max = 0, result = []
+//     let t = 0
+//     while (right != len - 1) {
+//         t++;
+//         if (map.has(str[right])) {
+//             res.push(str[right])
+//             map.set(str[right], 2)
+//             while (map.get(str[right]) === 2) {
+//                 const item = res.shift()
+//                 map.set(item, map.get(item) - 1)
+//                 if (!map.get(item)) map.delete(item)
+//             }
+//             right++
+//         } else {
+//             res.push(str[right])
+//             map.set(str[right++], 1)
+//             if (max < res.length) {
+//                 result = [...res]
+//                 max = res.length
+//             }
+//         }
+//     }
+//     return result
+// }
+// console.log(test('abcdbeaab'))
+
+// let obj = [1, 2, [3, 4, 5, [6, 7, 8, [9, 10]]], 11]
+// let res = []
+// obj.forEach((item) => {
+//     res.concat(item)
+// })
+// console.log(obj)
+
+// const obj = {
+//     f: 'f',
+//     f1: function f1() {
+//         console.log(this.f)
+//     },
+//     f2: function f2() {
+//         return () => {
+//             console.log(this.f)
+//         }
+//     },
+//     f3: () => {
+//         console.log(this.f)
+//     },
+//     f4() {
+//         console.log(this.f)
+//     },
+//     f5: (function () {
+//         return () => {
+//             console.log(this.f)
+//         }
+//     })(),
+
+// }
+// this.f = 'no'
+// global.f = 'aaaa'
+// obj.f1()        //f
+// console.log(1)
+// obj.f2()()      //f
+// console.log(2)
+// obj.f3()        //no
+// console.log(3)
+// obj.f4()        //f
+// console.log(4)
+// obj.f5()        //aaaa
+
+
+// const obj = {
+//     f: 'f',
+//     f1: function f1() {
+//         console.log(this.f)
+//     },
+//     f2: function f2() {
+//         return () => {
+//             console.log(this.f)
+//         }
+//     },
+//     f3: undefined,
+//     f4: null
+// }
+// console.log(JSON.parse(JSON.stringify(obj)))
+
+
+// // 字符串获取重复最多的字符及数字
+
+// function demo(str) {
+//     const map = new Map();
+//     let max = -1, now, s = ''
+//     for (const c of str) {
+//         const item = map.get(c)
+//         !item ? map.set(c, 1) : map.set(c, item + 1)
+//         now = map.get(c)
+//         if (now > max) {
+//             max = now
+//             s = c
+//         }
+//     }
+//     console.log(max, s)
+// }
+// demo('asdsbfoiaaaa')
+
+
+// function demo(str) {
+//     const map = new Map();
+//     let max = -1, now, arr = []
+//     for (const c of str) {
+//         const item = map.get(c)
+//         !item ? map.set(c, 1) : map.set(c, item + 1)
+//         now = map.get(c)
+//         if (now > max) {
+//             max = now
+//             arr = []
+//             arr[0] = c
+//         } else if (now === max) {
+//             arr.push(c)
+//         } else {
+
+//         }
+//     }
+//     console.log(max, arr)
+// }
+// demo('asdsbfoiaaaa')
+
+// 2.promise.all
+
+// const a = function () {
+//     return new Promise(function (resolve, reject) {
+//         setTimeout(function () {
+//             resolve(1)
+//         }, 500)
+//     })
+// }
+// const b = function () {
+//     return new Promise(function (resolve, reject) {
+//         setTimeout(function () {
+//             resolve(2)
+//         }, 200)
+//     })
+// }
+// const c = function () {
+//     return new Promise(function (resolve, reject) {
+//         setTimeout(function () {
+//             resolve(3)
+//         }, 300)
+//     })
+// }
+// function all(promises) {
+//     const result = [], len = promises.length
+//     let error, p = 0
+//     for (let i = 0; i < len; i++) {
+//         item = promises[i]
+//         item().then((val) => {
+//             result[index] = val
+//             p++
+//             if (p === len) {
+//                 console.log(result)
+//                 return Promise.resolve(result)
+//             }
+//         }).catch((err) => {
+//             error = err
+//             console.log(error)
+//             return Promise.reject(error)
+//         })
+//     }
+//     // promises.forEach((item, index) => {
+//     //     console.log(item)
+//     // })
+// }
+// all([a, b, c])
+
+
+
+// const obj = {
+//     name: 'baidu',
+//     arr: ['a', 'b', 'c']
+// }
+
+// var obj2 = obj
+// var arr = obj.arr   //['a', 'b', 'c']
+
+// obj2.arr = ['a', 'b', 'c', 'd']
+// obj2.name = 'inke'
+
+// console.log(arr)    //['a', 'b', 'c', 'd']
+// console.log(obj.name)   //'inke'
+// console.log(obj === obj2)   //true
+// console.log(obj.arr === obj2.arr)   //true
+// console.log(obj.arr === arr) //true
+// console.log(obj, obj2, arr)
+// var MAP = {
+//     onclick: function () {
+
+//     },
+//     curry: function (val) {
+//         return function (z) {
+//             return val++ + z
+//         }
+//     }
+// }
+
+// var getInfo = function (val) {
+//     return MAP[val]
+// }
+// var fn = getInfo('curry')
+
+// var a = fn(100)
+
+// console.log(a(200)) //300
+// console.log(a(300)) //401
+// console.log(fn(100)(200))   //300
+// console.log(getInfo('curry')(100)(300)) //400
+
+
+
+
+// var name = 'oop'
+
+// var Person = function (options) {
+//     this.name = options.name
+// }
+
+// Person.prototype.name = 'iron man'
+// Person.prototype.getName = function () {
+//     return this.name
+// }
+// Person.getName = () => {
+//     return this.name;
+// }
+
+// var p = new Person({ name: 'inke' })
+
+// console.log(p.constructor === Person) // true
+// console.log(p instanceof Person) // true
+// console.log(p.__proto__ === Person.prototype) // true
+
+// // console.log(p.hasOwnProperty('name')) //trutName) // true
+
+// console.log(getName()) // oop
+
+// console.log(Person.prototype.getName()) // iron man
+// console.log(p.getName()) //inke
+// console.log(Person.getName()) // undefined
+
+
+// useEffect()
+// useMemo()
+// usecallback()
+// memo
+// useState
+// useRouter()
+// useContext
+// useRef
+// useSelect
+
+// function A() {
+//     const a = useRef(null)
+//     return < Child ref="a" ></ Child >
+// }
+
+// function B(A) {
+//     //
+//     return <>
+//         <A></A>
+//     </>
+// }
+
+// export function B(A)
+
+// function demo(arr) {
+//     const len = arr.length
+//     if (len < 2) return arr
+//     const mid = 0, left = [], right = []
+//     for (let i = 0; i < len; i++) {
+//         if (arr[i] < arr[mid]) {
+//             left.push(arr[mid])
+//         } else {
+//             right.push(arr[mid])
+//         }
+//     }
+//     return [...demo(left), arr[mid], ...demo(right)]
+// }
+
+
+// let f = 'i'
+// const obj = {
+//     f: 'f',
+//     f1: function f1() {
+//         console.log(this.f)
+//     },
+//     f2: function f2() {
+//         const f = () => {
+//             console.log(this.f)
+//         }
+//         f()
+//     },
+//     f3: () => {
+//         console.log(this.f)
+//     }
+// }
+// obj.f1()
+// obj.f2()
+// obj.f3()
+// f = 'name'
+// obj.f3()
+
+
+
+// console.log(J)
+
+
+
+
+
+// function makeChagne(change) {
+//     // write code here
+//     //     let res = new Array(5).fill(0)
+//     //     for(let i=1;i <= change;i++){
+
+//     //     },
+//     // let now = change, res
+//     const val = [100, 50, 20, 5, 1], arr = [0, 0, 0, 0, 0]
+//     let min = Infinity, minv = [0, 0, 0, 0, 0]
+//     let p = 0
+//     function dfs(v, m) {
+//         // console.log(v, m)
+//         if (p) return
+//         if (v > change) return
+//         if (v == change && min > m) {
+//             minv = [...arr]
+//             min = m
+//             p = 1
+//             // console.log(minv, min, p, '!!!!!!!!')
+//             return
+//         }
+//         for (let i = 0; i < 5; i++) {
+//             if (m > min) break
+//             arr[i]++
+//             dfs((v - 0) + (val[i] - 0), m - 0 + 1)
+//             arr[i]--
+//         }
+//     }
+//     dfs(0, 0)
+//     return minv
+// }
+// console.log(makeChagne(126))
+
+// const arr = [[1, 2, 3], [2, 4], [5]]
+
+// const obj = [1, 2, 3, 4, 5]
+// console.log(obj.slice(1, 50), obj.slice(0, 5))
+// let str = ' yyyy yyyy yyyy'
+// console.log(str.replace(new RegExp(/yyyy/g), 222))
+// str = str.replace(new RegExp(/yyyy/g), 1)
+// str = str.replace(new RegExp(/dd/g), 1)
+// str = str.replace(new RegExp(/HH/g), 2)
+// str = str.replace(new RegExp(/mm/g), 2)
+// str = str.replace(new RegExp(/ss/g), 3)
+// console.log(str, 222)
+
+// const line = readline().split(' ')
+
+
+// let n = parseInt(line[0]),x= parseInt(line[1]),t = 0,p=n
+
+
+class eventCenter {
+    constructor() {
+        this.event = {}
+    }
+    on(event, cb) {
+        this.event[event] ? this.event[event].push(cb) : this.event[event] = [cb]
+    }
+
+    emit(event) {
+        const events = this.event[event]
+        events.map(item => {
+            item()
+        })
+    }
+
+    off(event, cb) {
+        this.event[event] = this.event[event].filter(item => {
+            item !== cb
+        })
+    }
+}
+
+const e = new eventCenter()
+e.on('test', function () { console.log('test') })
+e.emit('test')
+e.off('test', function () { console.log('test') })
+e.emit('test')

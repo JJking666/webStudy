@@ -1,7 +1,7 @@
 // //数组
 // let arr1:number[] = [1,2,3];             //1
 // let arr2:Array<number> = [1,2,3];        //2
-console.log(1122112)
+// console.log(1122112)
 
 // // 元组
 // let x: [string, number] ;
@@ -407,3 +407,11 @@ console.log(1122112)
 // //yyy.vue
 // this.$bus.$emit('event',data)
 
+//
+// type Point = { x: number; y: number };
+// type P = keyof Point; //p的值可以为 'x' | 'y'
+// const a:P = 'x';
+// const b:P = 1; //Type '1' is not assignable to type 'keyof Point'.ts(2322)
+
+type Point = any&number
+type Poin1t = unknown&any
