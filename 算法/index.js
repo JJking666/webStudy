@@ -77,4 +77,47 @@
 // console.log(haha(arr, a))
 // console.log(1)
 
+// 控制并发
+const fn = url => {
+    // 实际场景这里用axios等请求库 发请求即可 也不用设置延时
+    return new Promise(resolve => {
+        setTimeout(() => {
+            console.log('完成一个任务', url, new Date());
+            resolve({ url, date: new Date() });
+        }, 1000);
+    })
+};
 
+function limitQueue(urls, limit) {
+    // 完成任务数
+    let i = 0;
+    // 填充满执行队列
+    for (let excuteCount = 0; excuteCount < limit; excuteCount++) {
+        console.log(excuteCount)
+        run();
+    }
+    function run() {
+        console.log(i)
+        new Promise((resolve, reject) => {
+            const url = urls[i];
+            i++;
+            resolve(fn(url))
+        }).then(() => {
+            if (i < urls.length) run()
+        })
+    }
+};
+
+const p1 = new Promise((resolve, reject) => {
+    setTimeout(() => resolve(1), 0)
+})
+const p2 = new Promise((resolve, reject) => {
+    setTimeout(() => resolve(2), 0)
+})
+const p3 = new Promise((resolve, reject) => {
+    setTimeout(() => resolve(3), 0)
+})
+const p4 = new Promise((resolve, reject) => {
+    setTimeout(() => resolve(4), 0)
+})
+limitQueue([p1, p2, p3, p4], 2)

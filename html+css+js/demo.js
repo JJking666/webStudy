@@ -36,8 +36,6 @@
 //     return res
 // }
 
-
-
 // let n = 3
 // let thing1 = [5,10,8],thing2 = [5,8,7]
 // let m = 2
@@ -67,7 +65,6 @@
 //         else console.log('B')
 //     }
 // }
-
 
 // let n = 6,m=1
 // let len=n
@@ -116,3 +113,6 @@
 //    })
 //  }
 //  getDatas(['./api1','./api2','./api3','./api4']).then(() => '请求结束')
+
+let context = require.context("./html+css+js", false, /\.js$/);
+console.log(context);

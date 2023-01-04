@@ -3,8 +3,8 @@
  * @version:
  * @Author: congsir
  * @Date: 2022-04-25 22:25:01
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-09-18 18:10:37
+ * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
+ * @LastEditTime: 2022-11-09 17:40:24
  */
 
 // console.log(1)
@@ -1117,30 +1117,63 @@
 // let n = parseInt(line[0]),x= parseInt(line[1]),t = 0,p=n
 
 
-class eventCenter {
-    constructor() {
-        this.event = {}
-    }
-    on(event, cb) {
-        this.event[event] ? this.event[event].push(cb) : this.event[event] = [cb]
-    }
-
-    emit(event) {
-        const events = this.event[event]
-        events.map(item => {
-            item()
-        })
-    }
-
-    off(event, cb) {
-        this.event[event] = this.event[event].filter(item => {
-            item !== cb
-        })
+function fd(fn, time){
+    let timer = null
+    return function () {
+        if(timer){
+            clearTimeout(timer)
+        }
+        timer = setTimeout(() => {
+            fn()
+        }, time)
     }
 }
 
-const e = new eventCenter()
-e.on('test', function () { console.log('test') })
-e.emit('test')
-e.off('test', function () { console.log('test') })
-e.emit('test')
+
+class line {
+    arr = []
+    tack1 = []
+    tack2 = []
+    tag = 1
+    unshift () {
+        let res
+        if(this.tag){
+            if(!this.tack1.length)return -1
+            this.tack2 = [...this.tack1.reverse()]
+            res = this.tack2.pop()
+            if(this.tack2.length === 0){
+                this.tag = 0
+            }
+            return res
+        }else{
+            if(!this.tack2.length)return -1
+            this.tack1 = [...this.tack2.reverse()]
+            res = this.tack1.pop()
+            if(this.tack1.length === 0){
+                this.tag = 1
+            }
+            return res
+        }
+    }
+
+    push (val) {
+        if(this.tag){
+            this.tack1.push(val)
+        } else {
+            this.tack2.push(val)
+        }
+    }
+}
+const demo = new line()
+demo.push(1)
+demo.push(2)
+console.log(demo.tack1,demo.tack2)
+console.log(demo.unshift())
+demo.push(1)
+demo.push(2)
+demo.push(3)
+console.log(demo.tack1,demo.tack2)
+console.log(demo.unshift())
+
+
+
