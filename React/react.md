@@ -583,34 +583,36 @@ function logProps(WrappedComponent) {
 
 该 HOC 与上文中修改传入组件的 HOC 功能相同，同时避免了出现冲突的情况。它同样适用于 class 组件和函数组件。而且因为它是一个纯函数，它可以与其他 HOC 组合，甚至可以与其自身组合。
 
-> 产生跨域的本质是ajax引擎,解决跨域
+> 产生跨域的本质是 ajax 引擎,解决跨域
 
-+ 在package文件中配置proxy,然后让请求地址指向自身地址
+- 在 package 文件中配置 proxy,然后让请求地址指向自身地址
 
 ```ts
 //package.json
-proxy:"http://localhost:5000"   //自身是3000,代理到5000端口
+proxy: "http://localhost:5000"; //自身是3000,代理到5000端口
 //app.js
-axios.get("http://localhost:3000")      //发送到端口3000但是会被代理到5000的中间服务器，然后中间服务器和真正服务器进行请求接收
+axios.get("http://localhost:3000"); //发送到端口3000但是会被代理到5000的中间服务器，然后中间服务器和真正服务器进行请求接收
 ```
-此时会变成5000端口的中间服务器发送请求，5000端口的服务器接收请求并返回
+
+此时会变成 5000 端口的中间服务器发送请求，5000 端口的服务器接收请求并返回
 注意如果本地有请求的文件，那么会找本地要，如果没有再向服务器要
 
-React中
+React 中
+
 ```ts
-const {createProxyMiddleware } = require('http-proxy-middleware');
+const { createProxyMiddleware } = require("http-proxy-middleware");
 module.exports = function (app) {
   app.use(
-      createProxyMiddleware ('/api1', {
-      target: 'http://localhost:5000',
+    createProxyMiddleware("/api1", {
+      target: "http://localhost:5000",
       changeOrigin: true,
-      pathRewrite: {'^/api1': ''}
+      pathRewrite: { "^/api1": "" },
     })
-  )
+  );
 };
 ```
 
-+ 在文件或者webpack中写入proxy
+- 在文件或者 webpack 中写入 proxy
 
 ```ts
 proxy:('/api1',{
@@ -619,5 +621,12 @@ proxy:('/api1',{
     pathRewrite:('^/api1':'')   //必须注意是否重写,否则可能找不到资源(路径有问题)
 })
 ```
-当前缀匹配有api1时,代理到为端口5000的服务器,并把路径重写(去掉/api1)
-如果请求多个服务器，则以相同格式添加proxy
+
+当前缀匹配有 api1 时,代理到为端口 5000 的服务器,并把路径重写(去掉/api1)
+如果请求多个服务器，则以相同格式添加 proxy
+
+> react 为什么出 hooks？hooks 解决了什么问题
+
+- 解决逻辑难以重用和共享的问题
+- 当组件的逻辑十分复杂会难以维护和阅读
+- 降低如 class 组件的 this 学校成本

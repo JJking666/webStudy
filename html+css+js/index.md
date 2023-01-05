@@ -2835,67 +2835,70 @@ const height = window.getComputedStyle(colNode[j]).height; //获取的是css计�
 colNode[j].style.height = maxHeight + "px"; //设置宽高
 ```
 
-## Array方法
+## Array 方法
 
-> Array构造方法
+> Array 构造方法
 
 - Array.from(obj，fun)
-  - 传入第一个参数是可迭代的对象如set，map
-  - 第二个参数是对元素操作的函数如(x)=>x*x
+  - 传入第一个参数是可迭代的对象如 set，map
+  - 第二个参数是对元素操作的函数如(x)=>x\*x
 - Array.of(params)
   - 如果没有参数则构造空数组
-  - 如果只有一个数字参数，则构造一个空间为n的数组
+  - 如果只有一个数字参数，则构造一个空间为 n 的数组
   - 当有多个数字参数，将他们构造成数组
 
 > copyWithin
 
-+ target（必需）：复制到哪里位置
-+ start（可选）：从哪开始复制，默认为 0。如果为负值，表示从末尾开始计算。
-+ end（可选）：从哪停止复制，默认等于数组长度。如果为负值，表示从末尾开始计算。
-+ 可用作数组整体移动如[1, 2, 3, 4, 5].copyWithin(0, 1))将1下标之后的移动到下标为0的地方即整体前移一个坐标
+- target（必需）：复制到哪里位置
+- start（可选）：从哪开始复制，默认为 0。如果为负值，表示从末尾开始计算。
+- end（可选）：从哪停止复制，默认等于数组长度。如果为负值，表示从末尾开始计算。
+- 可用作数组整体移动如[1, 2, 3, 4, 5].copyWithin(0, 1))将 1 下标之后的移动到下标为 0 的地方即整体前移一个坐标
 
 > find,findIndex
 
-+ 第一个参数是判断函数，判断到第一个返回true的元素则返回
-+ 第二个参数可以绑定一个对象(帮助判断)
-+ 前者返回元素，后者返回下标
-***两者都可以取代forEach和map来提前结束循环***
+- 第一个参数是判断函数，判断到第一个返回 true 的元素则返回
+- 第二个参数可以绑定一个对象(帮助判断)
+- 前者返回元素，后者返回下标
+  **_两者都可以取代 forEach 和 map 来提前结束循环_**
+
 ```ts
-function f(v){
+function f(v) {
   return v > this.age;
 }
-let person = {name: 'John', age: 20};
-[10, 12, 26, 15].find(f, person);    // 26
+let person = { name: "John", age: 20 };
+[10, 12, 26, 15].find(f, person); // 26
 ```
 
 > fill
 
-+ 数组填充['a', 'b', 'c'].fill(7)或new Array().fill(7)两者都是返回[7,7,7]
-+ 若有第二三个参数，则可以指定填充的起始位置和终止位置
+- 数组填充['a', 'b', 'c'].fill(7)或 new Array().fill(7)两者都是返回[7,7,7]
+- 若有第二三个参数，则可以指定填充的起始位置和终止位置
 
 > includes
 
-+ 第一参数指定被包含的参数
-+ 第二参数指定搜索的开始位置
-+ `[1, 2, NaN].includes(NaN) // true`
+- 第一参数指定被包含的参数
+- 第二参数指定搜索的开始位置
+- `[1, 2, NaN].includes(NaN) // true`
 
 > flat()
 
-+ 扁平化数组
-+ 不改变原数组，只返回新数组
-+ 第二参数指定扁平化层数
+- 扁平化数组
+- 不改变原数组，只返回新数组
+- 第二参数指定扁平化层数
 
 > flatMap
 
-+ 对原数组的每个成员执行一个函数相当于执行Array.prototype.map()，然后对返回值组成的数组执行flat()方法。该方法返回一个新数组，不改变原数组
-+ 第二参数绑定this
+- 对原数组的每个成员执行一个函数相当于执行 Array.prototype.map()，然后对返回值组成的数组执行 flat()方法。该方法返回一个新数组，不改变原数组
+- 第二参数绑定 this
+
 ```ts
 // 相当于 [[2, 4], [3, 6], [4, 8]].flat()
-[2, 3, 4].flatMap((x) => [x, x * 2])
+[2, 3, 4].flatMap((x) => [x, x * 2]);
 // [2, 4, 3, 6, 4, 8]
 ```
 
 > 对象属性名
+
 ```ts
 let lastWord = 'last word';
 
@@ -2937,40 +2940,47 @@ const myObject = {
 
 myObject // Object {[object Object]: "valueB"}
 ```
+
 属性名表达式与简洁表示法，不能同时使用，会报错
 属性名表达式如果是一个对象，默认情况下会自动将对象转为字符串[object Object]
 
-## Object方法
+## Object 方法
 
 > object.assign
 
-+ 第一个参数：目标对象，在修改后作为返回值
-+ 第二个及之后参数：包含被复制属性的对象
-+ 返回值：被修改后的第一个参数
-+ 如果目标对象中的属性具有相同的键，则这些属性将被第二个及之后中的属性覆盖
-+ 注意assign对第一层深拷贝，对内层是浅拷贝
+- 第一个参数：目标对象，在修改后作为返回值
+- 第二个及之后参数：包含被复制属性的对象
+- 返回值：被修改后的第一个参数
+- 如果目标对象中的属性具有相同的键，则这些属性将被第二个及之后中的属性覆盖
+- 注意 assign 对第一层深拷贝，对内层是浅拷贝
 
 ```ts
 //无法复制原型链上的属性和不可枚举属性
-const obj = Object.create({ foo: 1 }, { // foo is on obj's prototype chain.
-  bar: {
-    value: 2  // bar is a non-enumerable property.
-  },
-  baz: {
-    value: 3,
-    enumerable: true  // baz is an own enumerable property.
+const obj = Object.create(
+  { foo: 1 },
+  {
+    // foo is on obj's prototype chain.
+    bar: {
+      value: 2, // bar is a non-enumerable property.
+    },
+    baz: {
+      value: 3,
+      enumerable: true, // baz is an own enumerable property.
+    },
   }
-});
+);
 
 const copy = Object.assign({}, obj);
 console.log(copy); // { baz: 3 }
 ```
+
 只有字符串有枚举属性可以被包装
+
 ```ts
-const v1 = 'abc';
+const v1 = "abc";
 const v2 = true;
 const v3 = 10;
-const v4 = Symbol('foo');
+const v4 = Symbol("foo");
 
 const obj = Object.assign({}, v1, null, v2, undefined, v3, v4);
 // Primitives will be wrapped, null and undefined will be ignored.
@@ -2978,13 +2988,14 @@ const obj = Object.assign({}, v1, null, v2, undefined, v3, v4);
 console.log(obj); // { "0": "a", "1": "b", "2": "c" }
 ```
 
-复制get属性
+复制 get 属性
+
 ```ts
 const obj = {
   foo: 1,
   get bar() {
     return 2;
-  }
+  },
 };
 
 let copy = Object.assign({}, obj);
@@ -2994,9 +3005,10 @@ console.log(copy);
 
 > object.create
 
-+ 第一个参数：新创建对象的原型
-+ 第二个参数：附加在创建对象上(不是原型！)的属性(默认不可被迭代，修改，编辑)
-+ 防止原型链的自带属性出现问题，可创建一个原型为null的对象`const nullProtoObj = Object.create(null)`，此时toString()无法使用
+- 第一个参数：新创建对象的原型
+- 第二个参数：附加在创建对象上(不是原型！)的属性(默认不可被迭代，修改，编辑)
+- 防止原型链的自带属性出现问题，可创建一个原型为 null 的对象`const nullProtoObj = Object.create(null)`，此时 toString()无法使用
+
 ```ts
 function Constructor() {}
 o = new Constructor();
@@ -3006,116 +3018,120 @@ o = Object.create(Constructor.prototype);
 
 > 对象属性
 
-+ configurable针对于属性，包括get|set
-+ enumerable设置是否能遍历
-+ writable 设置值是否可变
-+ value对象属性的值
+- configurable 针对于属性，包括 get|set
+- enumerable 设置是否能遍历
+- writable 设置值是否可变
+- value 对象属性的值
+
 ```ts
-Object.defineProperty(person,'name',{
-    configurable:false,//能否使用delete、能否需改属性特性、或能否修改访问器属性、，false为不可重新定义，默认值为true
-    enumerable:false,//对象属性是否可通过for-in循环，flase为不可循环，默认值为true
-    writable:false,//对象属性是否可修改,flase为不可修改，默认值为true
-    value:'xiaoming' //对象属性的默认值，默认值为undefined
-})
+Object.defineProperty(person, "name", {
+  configurable: false, //能否使用delete、能否需改属性特性、或能否修改访问器属性、，false为不可重新定义，默认值为true
+  enumerable: false, //对象属性是否可通过for-in循环，flase为不可循环，默认值为true
+  writable: false, //对象属性是否可修改,flase为不可修改，默认值为true
+  value: "xiaoming", //对象属性的默认值，默认值为undefined
+});
 ```
 
 > object.defineProperties
 
-+ 第一参数是待修改属性的对象
-+ 第二参数是准备修改的所有属性及描述符的对象
-+ 描述符有configurable，enumerable，value，writable，get,set
+- 第一参数是待修改属性的对象
+- 第二参数是准备修改的所有属性及描述符的对象
+- 描述符有 configurable，enumerable，value，writable，get,set
+
 ```ts
 Object.defineProperties(obj, {
-  'property1': {
+  property1: {
     value: true,
-    writable: true
+    writable: true,
   },
-  'property2': {
-    value: 'Hello',
-    writable: false
-  }
+  property2: {
+    value: "Hello",
+    writable: false,
+  },
   // etc. etc.
 });
 ```
 
 > object.defineProperty
 
-+ 第一参数是待修改属性的对象
-+ 第二参数是准备修改的属性
-+ 第三参数是修改的属性的描述符
-+ 描述符有configurable，enumerable，value，writable，get,set
+- 第一参数是待修改属性的对象
+- 第二参数是准备修改的属性
+- 第三参数是修改的属性的描述符
+- 描述符有 configurable，enumerable，value，writable，get,set
+
 ```ts
-Object.defineProperty(obj, 'key2', {
+Object.defineProperty(obj, "key2", {
   enumerable: false,
   configurable: false,
   writable: false,
-  value: 'static'
+  value: "static",
 });
 ```
 
 > Object.freeze()
 
-+ 不能修改，编辑，属性，也不能修改原型
+- 不能修改，编辑，属性，也不能修改原型
 
 > Object.entries()
 
-+ 返回键值对数组，返回数组
+- 返回键值对数组，返回数组
 
 > Object.fromEntries
 
-+ 将键值对列表转换为对象,返回一个对象
+- 将键值对列表转换为对象,返回一个对象
 
 > Object.getPrototypeOf()
 
-+ 返回该对象的原型
+- 返回该对象的原型
 
 > Object.setPropertyOf()
 
-> Object.hasOwnProperty()与Object.hasOwn()
+> Object.hasOwnProperty()与 Object.hasOwn()
 
-+ 判断直接属性为true，继承原型的属性为false
-+ 与in不同，in会将所有属性都判断为true
-+ 效果基本一致，但是Object.hasOwn()处理更符合常规
-+ 注意hasOwn()需要node16.9.0之后才能用
-+ 且hasOwn()能够判断原型为null的对象
+- 判断直接属性为 true，继承原型的属性为 false
+- 与 in 不同，in 会将所有属性都判断为 true
+- 效果基本一致，但是 Object.hasOwn()处理更符合常规
+- 注意 hasOwn()需要 node16.9.0 之后才能用
+- 且 hasOwn()能够判断原型为 null 的对象
+
 ```ts
 const foo = Object.create(null);
-foo.prop = 'true';
-if (Object.hasOwn(foo, 'prop')) {
+foo.prop = "true";
+if (Object.hasOwn(foo, "prop")) {
   console.log(foo.prop); //true
 }
-foo.hasOwnProperty("prop");  // Uncaught TypeError: foo.hasOwnProperty is not a function
+foo.hasOwnProperty("prop"); // Uncaught TypeError: foo.hasOwnProperty is not a function
 ```
 
 > Object.is()
 
-+ 对两个参数进行判断
-+ 处理了正负0以及NaN的判断
+- 对两个参数进行判断
+- 处理了正负 0 以及 NaN 的判断
 
 ```ts
-Object.is(0, -0);                 // false
-Object.is(+0, -0);                // false
-Object.is(-0, -0);                // true
-Object.is(0n, -0n);               // true
+Object.is(0, -0); // false
+Object.is(+0, -0); // false
+Object.is(-0, -0); // true
+Object.is(0n, -0n); // true
 
 // Case 3: NaN
-Object.is(NaN, 0/0);              // true
-Object.is(NaN, Number.NaN)        // true
+Object.is(NaN, 0 / 0); // true
+Object.is(NaN, Number.NaN); // true
 ```
 
 > Object.seal()
 
-+ 禁止删除和添加属性，不可配置
-+ 可以修改值
+- 禁止删除和添加属性，不可配置
+- 可以修改值
 
 > Object.setPrototypeOf()
 
-+ 第一参数要设置其原型的对象。
-+ 第二参数对象的新原型（对象或 null）
-+ 返回新对象
+- 第一参数要设置其原型的对象。
+- 第二参数对象的新原型（对象或 null）
+- 返回新对象
 
-> 函数的length属性
-length将返回没有指定默认值的参数个数
+> 函数的 length 属性
+> length 将返回没有指定默认值的参数个数
 
 ```ts
 (function (a) {}).length // 1
@@ -3130,13 +3146,14 @@ rest 参数也不会计入length属性
 (function (a, b = 1, c) {}).length // 1
 ```
 
-一旦参数里定义了，不能使用let|const重新定义
+一旦参数里定义了，不能使用 let|const 重新定义
 
 一旦设置了参数的默认值，函数进行声明初始化时，参数会形成一个**单独的作用域**
 
 等到初始化结束，这个作用域就会消失。这种语法行为，在不设置参数默认值时，是不会出现的
 
-下面例子中，y=x会形成一个单独作用域，x没有被定义，所以指向全局变量x
+下面例子中，y=x 会形成一个单独作用域，x 没有被定义，所以指向全局变量 x
+
 ```ts
 let x = 1;
 
@@ -3146,15 +3163,16 @@ function f(y = x) {
   console.log(y);
 }
 
-f() // 1
+f(); // 1
 ```
 
 > Set
 
-+ 元素都是不重复，重复添加无效
-+ Set使用entries()返回键值相同的二维数组
-+ keys()等于values( )
-+ 求并集，交集，差集
+- 元素都是不重复，重复添加无效
+- Set 使用 entries()返回键值相同的二维数组
+- keys()等于 values( )
+- 求并集，交集，差集
+
 ```ts
 let a = new Set([1, 2, 3]);
 let b = new Set([4, 3, 2]);
@@ -3164,36 +3182,36 @@ let union = new Set([...a, ...b]);
 // Set {1, 2, 3, 4}
 
 // 交集
-let intersect = new Set([...a].filter(x => b.has(x)));
+let intersect = new Set([...a].filter((x) => b.has(x)));
 // set {2, 3}
 
 // （a 相对于 b 的）差集
-let difference = new Set([...a].filter(x => !b.has(x)));
+let difference = new Set([...a].filter((x) => !b.has(x)));
 // Set {1}
-
 ```
 
-> weakSet和weakMap
+> weakSet 和 weakMap
 
-+ weakmap
-  + 键只能存引用对象
-  + 没有clear的api
-+ weakset
-  + 只能存引用对象
-  + 没有size属性
-+ 在引用对象不再被外部引用时会自动被垃圾回收，不需要手动删除引用
-+ 应用场景 引用Dom
+- weakmap
+  - 键只能存引用对象
+  - 没有 clear 的 api
+- weakset
+  - 只能存引用对象
+  - 没有 size 属性
+- 在引用对象不再被外部引用时会自动被垃圾回收，不需要手动删除引用
+- 应用场景 引用 Dom
 
 **注意：WeakMap 弱引用的只是键名，而不是键值**。键值依然是正常引用
-下面代码中，键值obj会在WeakMap产生新的引用，当你修改obj不会影响到内部
+下面代码中，键值 obj 会在 WeakMap 产生新的引用，当你修改 obj 不会影响到内部
+
 ```ts
 const wm = new WeakMap();
 let key = {};
-let obj = {foo: 1};
+let obj = { foo: 1 };
 
 wm.set(key, obj);
 obj = null;
-wm.get(key)
+wm.get(key);
 // Object {foo: 1}
 ```
 
@@ -3201,84 +3219,86 @@ wm.get(key)
 
 > all
 
-+ 参数中接收多个promise实例
-`const p = Promise.all([p1, p2, p3]);`
-  + 只有p1、p2、p3的状态都变成fulfilled，p的状态才会变成fulfilled，此时p1、p2、p3的返回值组成一个数组，传递给p的回调函数
-  + 只要p1、p2、p3之中有一个被rejected，p的状态就变成rejected，此时第一个被reject的实例的返回值，会传递给p的回调函数
-  +
-注意，如果作为参数的 Promise 实例，自己定义了catch方法，那么它一旦被rejected，并**不会**触发Promise.all()的catch方法
+- 参数中接收多个 promise 实例
+  `const p = Promise.all([p1, p2, p3]);`
+  - 只有 p1、p2、p3 的状态都变成 fulfilled，p 的状态才会变成 fulfilled，此时 p1、p2、p3 的返回值组成一个数组，传递给 p 的回调函数
+  - 只要 p1、p2、p3 之中有一个被 rejected，p 的状态就变成 rejected，此时第一个被 reject 的实例的返回值，会传递给 p 的回调函数
+  - 注意，如果作为参数的 Promise 实例，自己定义了 catch 方法，那么它一旦被 rejected，并**不会**触发 Promise.all()的 catch 方法
+
 ```ts
 const p1 = new Promise((resolve, reject) => {
-  resolve('hello');
+  resolve("hello");
 })
-.then(result => result)
-.catch(e => e);
+  .then((result) => result)
+  .catch((e) => e);
 
 const p2 = new Promise((resolve, reject) => {
-  throw new Error('报错了');
+  throw new Error("报错了");
 })
-.then(result => result)
-.catch(e => e);
+  .then((result) => result)
+  .catch((e) => e);
 
 Promise.all([p1, p2])
-.then(result => console.log(result))
-.catch(e => console.log(e));
+  .then((result) => console.log(result))
+  .catch((e) => console.log(e));
 // ["hello", Error: 报错了]
 ```
 
-如果p2没有自己的catch方法，就会调用Promise.all()的catch方法
+如果 p2 没有自己的 catch 方法，就会调用 Promise.all()的 catch 方法
+
 ```ts
 const p1 = new Promise((resolve, reject) => {
-  resolve('hello');
-})
-.then(result => result);
+  resolve("hello");
+}).then((result) => result);
 
 const p2 = new Promise((resolve, reject) => {
-  throw new Error('报错了');
-})
-.then(result => result);
+  throw new Error("报错了");
+}).then((result) => result);
 
 Promise.all([p1, p2])
-.then(result => console.log(result))
-.catch(e => console.log(e));
+  .then((result) => console.log(result))
+  .catch((e) => console.log(e));
 // Error: 报错了
 ```
 
 > race()
 
-+ 参数：传入的promise数组
+- 参数：传入的 promise 数组
+
 ```ts
 const p = Promise.race([p1, p2, p3]);
 ```
-只要p1、p2、p3之中有一个实例率先改变状态，p的状态就跟着改变
 
-率先改变的 Promise 实例的返回值则传递给p的回调函数
+只要 p1、p2、p3 之中有一个实例率先改变状态，p 的状态就跟着改变
+
+率先改变的 Promise 实例的返回值则传递给 p 的回调函数
 
 > allSettled()
 
 接受一组 Promise 实例作为参数，包装成一个新的 Promise 实例
 
-只有等到所有这些参数实例都返回结果，不管是fulfilled还是rejected，包装实例才会结束
+只有等到所有这些参数实例都返回结果，不管是 fulfilled 还是 rejected，包装实例才会结束
 
-和all不同的是，即使有rejected，也只触发then，并将结果(无论是成功失败)按数组顺序传入then
+和 all 不同的是，即使有 rejected，也只触发 then，并将结果(无论是成功失败)按数组顺序传入 then
 
-> Generator函数
-执行 Generator 函数会返回一个遍历器对象，可以依次遍历 Generator 函数内部的每一个状态
+> Generator 函数
+> 执行 Generator 函数会返回一个遍历器对象，可以依次遍历 Generator 函数内部的每一个状态
 
-形式上，Generator函数是一个普通函数，但是有两个特征：
+形式上，Generator 函数是一个普通函数，但是有两个特征：
 
-+ function关键字与函数名之间有一个星号
-+ 函数体内部使用yield表达式，定义不同的内部状态
+- function 关键字与函数名之间有一个星号
+- 函数体内部使用 yield 表达式，定义不同的内部状态
 
 ```ts
 function* helloWorldGenerator() {
-  yield 'hello';
-  yield 'world';
-  return 'ending';
+  yield "hello";
+  yield "world";
+  return "ending";
 }
 ```
 
-Generator 函数会返回一个遍历器对象，即具有Symbol.iterator属性，并且返回给自己
+Generator 函数会返回一个遍历器对象，即具有 Symbol.iterator 属性，并且返回给自己
+
 ```ts
 toStringfunction* gen(){
   // some code
@@ -3287,53 +3307,55 @@ var g = gen();
 g[Symbol.iterator]() === g
 // true
 ```
+
 上述存在三个状态：hello、world、return
 
-通过next方法才会遍历到下一个内部状态，其运行逻辑如下：
+通过 next 方法才会遍历到下一个内部状态，其运行逻辑如下：
 
-+ 遇到yield表达式，就暂停执行后面的操作，并将紧跟在yield后面的那个表达式的值，作为返回的对象的value属性值。
-+ 下一次调用next方法时，再继续往下执行，直到遇到下一个yield表达式
-+ 如果没有再遇到新的yield表达式，就一直运行到函数结束，直到return语句为止，并将return语句后面的表达式的值，作为返回的对象的value属性值。
-+ 如果该函数没有return语句，则返回的对象的value属性值为undefined
+- 遇到 yield 表达式，就暂停执行后面的操作，并将紧跟在 yield 后面的那个表达式的值，作为返回的对象的 value 属性值。
+- 下一次调用 next 方法时，再继续往下执行，直到遇到下一个 yield 表达式
+- 如果没有再遇到新的 yield 表达式，就一直运行到函数结束，直到 return 语句为止，并将 return 语句后面的表达式的值，作为返回的对象的 value 属性值。
+- 如果该函数没有 return 语句，则返回的对象的 value 属性值为 undefined
 
 ```ts
-hw.next()
+hw.next();
 // { value: 'hello', done: false }
 
-hw.next()
+hw.next();
 // { value: 'world', done: false }
 
-hw.next()
+hw.next();
 // { value: 'ending', done: true }
 
-hw.next()
+hw.next();
 // { value: undefined, done: true }
 ```
-done用来判断是否存在下个状态，value对应状态值
 
-yield表达式本身没有返回值，或者说总是返回`undefined`
+done 用来判断是否存在下个状态，value 对应状态值
 
-通过调用next方法可以带一个参数，该参数就会被当作上一个yield表达式的返回值
+yield 表达式本身没有返回值，或者说总是返回`undefined`
+
+通过调用 next 方法可以带一个参数，该参数就会被当作上一个 yield 表达式的返回值
 
 ```ts
 function* foo(x) {
-  var y = 2 * (yield (x + 1));
-  var z = yield (y / 3);
-  return (x + y + z);
+  var y = 2 * (yield x + 1);
+  var z = yield y / 3;
+  return x + y + z;
 }
 
 var a = foo(5);
-a.next() // Object{value:6, done:false}
-a.next() // Object{value:NaN, done:false}
-a.next() // Object{value:NaN, done:true}
+a.next(); // Object{value:6, done:false}
+a.next(); // Object{value:NaN, done:false}
+a.next(); // Object{value:NaN, done:true}
 
 var b = foo(5);
-b.next() // { value:6, done:false }  5+1 = 6
-b.next(12) // { value:8, done:false }   y=12*2=24 24/3=8
-b.next(13) // { value:42, done:true }   24 + 13 +5
+b.next(); // { value:6, done:false }  5+1 = 6
+b.next(12); // { value:8, done:false }   y=12*2=24 24/3=8
+b.next(13); // { value:42, done:true }   24 + 13 +5
 ```
 
-因为Generator函数返回Iterator对象，因此我们还可以通过for...of进行遍历
+因为 Generator 函数返回 Iterator 对象，因此我们还可以通过 for...of 进行遍历
 
 ```ts
 function* foo() {
@@ -3351,80 +3373,82 @@ for (let v of foo()) {
 // 1 2 3 4 5
 ```
 
-+ async实质是Generator的语法糖，相当于会自动执行Generator函数
-+ Generator并不是为异步而设计出来的，它还有其他功能（对象迭代、控制输出、部署Interator接口...）
+- async 实质是 Generator 的语法糖，相当于会自动执行 Generator 函数
+- Generator 并不是为异步而设计出来的，它还有其他功能（对象迭代、控制输出、部署 Interator 接口...）
 
 ```ts
-
 function showLoadingScreen() {
-    console.log(1)
+  console.log(1);
 }
 function loadUIDataAsynchronously() {
-    console.log(2)
+  console.log(2);
 }
 function hideLoadingScreen() {
-    console.log(3)
+  console.log(3);
 }
 function* loadUI() {
-    showLoadingScreen();
-    yield loadUIDataAsynchronously();
-    hideLoadingScreen();
+  showLoadingScreen();
+  yield loadUIDataAsynchronously();
+  hideLoadingScreen();
 }
 var loader = loadUI();
 // 加载UI
-loader.next() // 1 2
+loader.next(); // 1 2
 
 // 卸载UI
-loader.next() // 3
+loader.next(); // 3
 ```
 
 > Proxy
 
-+ 参数
-  + target 目标对象
-  + handler
-    + get(target,propKey,receiver)：拦截对象属性的读取
-    + set(target,propKey,value,receiver)：拦截对象属性的设置
-    + has(target,propKey)：拦截propKey in proxy的操作，返回一个布尔值
-    + deleteProperty(target,propKey)：拦截delete proxy[propKey]的操作，返回一个布尔值
-    + ownKeys(target)：拦截Object.keys(proxy)、for...in等循环，返回一个数组
-    + getOwnPropertyDescriptor(target, propKey)：拦截Object.getOwnPropertyDescriptor(proxy, propKey)，返回属性的描述对象
-    + defineProperty(target, propKey, propDesc)：拦截Object.defineProperty(proxy, propKey, propDesc），返回一个布尔值
-    + preventExtensions(target)：拦截Object.preventExtensions(proxy)，返回一个布尔值
-    + getPrototypeOf(target)：拦截Object.getPrototypeOf(proxy)，返回一个对象
-      + 注意a.__proto__ === Object.getPrototypeOf(a)
-    + isExtensible(target)：拦截Object.isExtensible(proxy)，返回一个布尔值
-    + setPrototypeOf(target, proto)：拦截Object.setPrototypeOf(proxy, proto)，返回一个布尔值
-    + apply(target, object, args)：拦截 Proxy 实例作为函数调用的操作
-    + construct(target, args)：拦截 Proxy 实例作为构造函数调用的操作
+- 参数
+  - target 目标对象
+  - handler
+    - get(target,propKey,receiver)：拦截对象属性的读取
+    - set(target,propKey,value,receiver)：拦截对象属性的设置
+    - has(target,propKey)：拦截 propKey in proxy 的操作，返回一个布尔值
+    - deleteProperty(target,propKey)：拦截 delete proxy[propKey]的操作，返回一个布尔值
+    - ownKeys(target)：拦截 Object.keys(proxy)、for...in 等循环，返回一个数组
+    - getOwnPropertyDescriptor(target, propKey)：拦截 Object.getOwnPropertyDescriptor(proxy, propKey)，返回属性的描述对象
+    - defineProperty(target, propKey, propDesc)：拦截 Object.defineProperty(proxy, propKey, propDesc），返回一个布尔值
+    - preventExtensions(target)：拦截 Object.preventExtensions(proxy)，返回一个布尔值
+    - getPrototypeOf(target)：拦截 Object.getPrototypeOf(proxy)，返回一个对象
+      - 注意 a.**proto** === Object.getPrototypeOf(a)
+    - isExtensible(target)：拦截 Object.isExtensible(proxy)，返回一个布尔值
+    - setPrototypeOf(target, proto)：拦截 Object.setPrototypeOf(proxy, proto)，返回一个布尔值
+    - apply(target, object, args)：拦截 Proxy 实例作为函数调用的操作
+    - construct(target, args)：拦截 Proxy 实例作为构造函数调用的操作
 
 > Reflect
 
-+ 只要Proxy对象具有的代理方法，Reflect对象全部具有，以静态方法的形式存在
-+ 修改某些Object方法的返回结果，让其变得更合理（定义不存在属性行为的时候不报错而是返回false）
-+ 让Object操作都变成函数行为
+- 只要 Proxy 对象具有的代理方法，Reflect 对象全部具有，以静态方法的形式存在
+- 修改某些 Object 方法的返回结果，让其变得更合理（定义不存在属性行为的时候不报错而是返回 false）
+- 让 Object 操作都变成函数行为
 
 如果一个属性不可配置（configurable）且不可写（writable），则 Proxy 不能修改该属性，否则会报错
 
 ```ts
-const target = Object.defineProperties({}, {
-  foo: {
-    value: 123,
-    writable: false,
-    configurable: false
-  },
-});
+const target = Object.defineProperties(
+  {},
+  {
+    foo: {
+      value: 123,
+      writable: false,
+      configurable: false,
+    },
+  }
+);
 
 const handler = {
   get(target, propKey) {
-    return '222';   //报错
-    return Reflect.get(target, propKey) //不报错
-  }
+    return "222"; //报错
+    return Reflect.get(target, propKey); //不报错
+  },
 };
 
 const proxy = new Proxy(target, handler);
 
-proxy.foo
+proxy.foo;
 // TypeError: Invariant check failed
 ```
 
@@ -3433,20 +3457,20 @@ proxy.foo
 
 > CommonJs
 
-+ 导出对象是浅拷贝，导出文件里修改对象，引入文件里的对象也会修改（导出文件和引入文件中的引用对象互相影响）
-+ 导出普通变量则是深拷贝，双方互不影响
+- 导出对象是浅拷贝，导出文件里修改对象，引入文件里的对象也会修改（导出文件和引入文件中的引用对象互相影响）
+- 导出普通变量则是深拷贝，双方互不影响
 
 > es6
 
-+ 输入的变量都是只读的，不允许修改，但是如果是对象，允许修改属性(不建议修改，会使数据混乱)
+- 输入的变量都是只读的，不允许修改，但是如果是对象，允许修改属性(不建议修改，会使数据混乱)
 
 可动态加载
+
 ```ts
-import('/modules/myModule.mjs')
-  .then((module) => {
-    // Do something with the module.
-  });
-  ```
+import("/modules/myModule.mjs").then((module) => {
+  // Do something with the module.
+});
+```
 
 > Decorator
 
@@ -3468,47 +3492,50 @@ function testable(target) {
   target.isTestable = true;
 }
 
-MyTestableClass.isTestable // true
+MyTestableClass.isTestable; // true
 ```
 
 如果想要传递参数，可以在装饰器外层再封装一层函数
 
 ```ts
 function testable(isTestable) {
-  return function(target) {
+  return function (target) {
     target.isTestable = isTestable;
-  }
+  };
 }
 
 @testable(true)
 class MyTestableClass {}
-MyTestableClass.isTestable // true
+MyTestableClass.isTestable; // true
 
 @testable(false)
 class MyClass {}
-MyClass.isTestable // false
+MyClass.isTestable; // false
 ```
 
 > 类属性的装饰
-当对类属性进行装饰的时候，能够接受三个参数：
+> 当对类属性进行装饰的时候，能够接受三个参数：
 
-+ 类的原型对象
-+ 需要装饰的属性名
-+ 装饰属性名的描述对象
-+
-首先定义一个readonly装饰器
+- 类的原型对象
+- 需要装饰的属性名
+- 装饰属性名的描述对象
+- 首先定义一个 readonly 装饰器
+
 ```ts
-function readonly(target, name, descriptor){
+function readonly(target, name, descriptor) {
   descriptor.writable = false; // 将可写属性设为false
   return descriptor;
 }
 ```
-使用readonly装饰类的name方法
+
+使用 readonly 装饰类的 name 方法
 
 ```ts
 class Person {
   @readonly
-  name() { return `${this.first} ${this.last}` }
+  name() {
+    return `${this.first} ${this.last}`;
+  }
 }
 ```
 
@@ -3519,15 +3546,15 @@ class Person {
 如果一个方法有多个装饰器，就像洋葱一样，先从外到内进入，再由内到外执行
 
 ```ts
-function dec(id){
-    console.log('evaluated', id);
-    return (target, property, descriptor) =>console.log('executed', id);
+function dec(id) {
+  console.log("evaluated", id);
+  return (target, property, descriptor) => console.log("executed", id);
 }
 
 class Example {
-    @dec(1)
-    @dec(2)
-    method(){}
+  @dec(1)
+  @dec(2)
+  method() {}
 }
 // evaluated 1
 // evaluated 2
@@ -3537,55 +3564,55 @@ class Example {
 
 > 基本类型
 
-+ Number
-+ String
-+ Boolean
-  + 注意数字0和 NaN 会被转成 false，其他为true
-  + Object只有null会被转成false，其他为true
-+ Undefined
-+ null
-+ symbol
-  + Symbol （符号）是原始值，且符号实例是唯一、不可变的。符号的用途是确保对象属性使用唯一标识符，不会发生属性冲突的危险
+- Number
+- String
+- Boolean
+  - 注意数字 0 和 NaN 会被转成 false，其他为 true
+  - Object 只有 null 会被转成 false，其他为 true
+- Undefined
+- null
+- symbol
+  - Symbol （符号）是原始值，且符号实例是唯一、不可变的。符号的用途是确保对象属性使用唯一标识符，不会发生属性冲突的危险
 
 ```ts
 let genericSymbol = Symbol();
 let otherGenericSymbol = Symbol();
 console.log(genericSymbol == otherGenericSymbol); // false
 
-let fooSymbol = Symbol('foo');
-let otherFooSymbol = Symbol('foo');
+let fooSymbol = Symbol("foo");
+let otherFooSymbol = Symbol("foo");
 console.log(fooSymbol == otherFooSymbol); // false
 ```
 
-+ function 其实是Function对象的实例
+- function 其实是 Function 对象的实例
 
 > array.splice
 
-+ 参数
-  + 开始删除的位置
-  + 删除的个数
-  + 之后的参数是往删除位置添加的元素可多个
-+ 返回值是被删除的数组
-+ 该方法会改变数组自身
+- 参数
+  - 开始删除的位置
+  - 删除的个数
+  - 之后的参数是往删除位置添加的元素可多个
+- 返回值是被删除的数组
+- 该方法会改变数组自身
+
 ```ts
 let colors = ["red", "green", "blue"];
-let removed = colors.splice(1, 0, "yellow", "orange")
-console.log(colors) // red,yellow,orange,green,blue
-console.log(removed) // []
+let removed = colors.splice(1, 0, "yellow", "orange");
+console.log(colors); // red,yellow,orange,green,blue
+console.log(removed); // []
 ```
 
 > concat()
-首先会创建一个当前数组的副本，然后再把它的参数添加到副本末尾，最后返回这个新构建的数组，不会影响原始数组
+> 首先会创建一个当前数组的副本，然后再把它的参数添加到副本末尾，最后返回这个新构建的数组，不会影响原始数组
 
 > 改变数组自身的方法
 
-+ shift,unshift,sort,reverse,pop,push,splice
-
+- shift,unshift,sort,reverse,pop,push,splice
 
 > 不改改变数组自身的方法
 
 - some()
-  - 对数组每一项都运行传入的测试函数，如果至少有1个元素返回 true ，则这个方法返回 true
+  - 对数组每一项都运行传入的测试函数，如果至少有 1 个元素返回 true ，则这个方法返回 true
 - every()
   - 对数组每一项都运行传入的测试函数，如果所有元素都返回 true ，则这个方法返回 true
 - forEach()
@@ -3597,7 +3624,7 @@ console.log(removed) // []
 - slice()
   - 返回剪切后的数组
 
-注意，some和every可代替foreach或map来提前结束遍历，或者使用try|catch
+注意，some 和 every 可代替 foreach 或 map 来提前结束遍历，或者使用 try|catch
 
 > 字符串方法
 
@@ -3614,7 +3641,7 @@ console.log(removed) // []
 - indexOf()
   - 从字符串开头去搜索传入的字符串，并返回位置（如果没找到，则返回 -1 ）
 - startWith(str)
-  - 返回字符串是否以str开头
+  - 返回字符串是否以 str 开头
 - includes()
   - 从字符串中搜索传入的字符串，并返回一个表示是否包含的布尔值
 - split
@@ -3624,12 +3651,12 @@ console.log(removed) // []
 - search()
   - 返回匹配到位置的索引，若匹配不到则返回-1
 - replace(reg,str)
-  - 将reg匹配到的字符串替换为str，返回替换后的数组
+  - 将 reg 匹配到的字符串替换为 str，返回替换后的数组
 
 ```ts
 //repeat
 let stringValue = "na ";
-let copyResult = stringValue.repeat(2) // na na
+let copyResult = stringValue.repeat(2); // na na
 
 //padStart
 let stringValue = "foo";
@@ -3651,15 +3678,16 @@ console.log(stringValue.toLowerCase()); // "hello world"
 
 ```ts
 // 对象：通常转换成NaN(除了只包含单个数值的数组),因为回先调用toString()，再转数字
-Number({a: 1}) // NaN
-Number([1, 2, 3]) // NaN
-Number([5]) // 5
+Number({ a: 1 }); // NaN
+Number([1, 2, 3]); // NaN
+Number([5]); // 5
 ```
-+ `new Object|String('')` 会先转为 [String: ''],在转为true，而String('')会返回false(后者是字符串)
+
+- `new Object|String('')` 会先转为 [String: ''],在转为 true，而 String('')会返回 false(后者是字符串)
 
 > parseInt()
 
-parseInt相比Number，就没那么严格了，parseInt函数逐个解析字符，遇到不能转换的字符就停下来
+parseInt 相比 Number，就没那么严格了，parseInt 函数逐个解析字符，遇到不能转换的字符就停下来
 
 `parseInt('32a3') //32`
 
@@ -3668,50 +3696,51 @@ parseInt相比Number，就没那么严格了，parseInt函数逐个解析字符�
 ![](https://static.vue-js.com/48dd8eb0-6692-11eb-85f6-6fac77c0c9b3.png)
 
 ```ts
-String({a: 1}) // "[object Object]"
-String([1, 2, 3]) // "1,2,3"
+String({ a: 1 }); // "[object Object]"
+String([1, 2, 3]); // "1,2,3"
 ```
 
-> Boolean转换类型
+> Boolean 转换类型
 
 ![](https://static.vue-js.com/53bdad10-6692-11eb-ab90-d9ae814b240d.png)
 
 ```ts
-Boolean(undefined) // false
-Boolean(null) // false
-Boolean(0) // false
-Boolean(NaN) // false
-Boolean('') // false
-Boolean({}) // true
-Boolean([]) // true  注意！！！
-Boolean(new Boolean(false)) // true
+Boolean(undefined); // false
+Boolean(null); // false
+Boolean(0); // false
+Boolean(NaN); // false
+Boolean(""); // false
+Boolean({}); // true
+Boolean([]); // true  注意！！！
+Boolean(new Boolean(false)); // true
 ```
 
 > 不全等比较
 
-+ 如果两个类型相同，直接比较值
-+ 两个都为简单类型，字符串和布尔值都会转换成数值，再比较
-+ 简单类型与引用类型比较，对象转化成其原始类型的值，再比较
-+ 两个都为引用类型，则比较它们是否指向同一个对象
-+ null 和 undefined 相等
-+ 存在 NaN 则返回 false
+- 如果两个类型相同，直接比较值
+- 两个都为简单类型，字符串和布尔值都会转换成数值，再比较
+- 简单类型与引用类型比较，对象转化成其原始类型的值，再比较
+- 两个都为引用类型，则比较它们是否指向同一个对象
+- null 和 undefined 相等
+- 存在 NaN 则返回 false
 
 ```ts
-'' == '0' // false
-0 == '' // true
-0 == '0' // true
+"" == "0"; // false
+0 == ""; // true
+0 == "0"; // true
 
-false == 'false' // false
-false == '0' // true
+false == "false"; // false
+false == "0"; // true
 
-false == undefined // false
-false == null // false
-null == undefined // true
+false == undefined; // false
+false == null; // false
+null == undefined; // true
 
-' \t\r\n' == 0 // true
+" \t\r\n" == 0; // true
 ```
 
 判断一个值是否存在
+
 ```ts
 const obj = {};
 
@@ -3727,28 +3756,28 @@ if(obj.x === null || obj.x === undefined) {
 
 #### 闭包
 
-+ 实现私有属性和私有方法
-+ 延长局部变量的生命周期
-+ 实现柯里化
-+ 副作用是可能导致内存泄露
+- 实现私有属性和私有方法
+- 延长局部变量的生命周期
+- 实现柯里化
+- 副作用是可能导致内存泄露
 
 ```ts
-var Counter = (function() {
+var Counter = (function () {
   var privateCounter = 0;
   function changeBy(val) {
     privateCounter += val;
   }
   return {
-    increment: function() {
+    increment: function () {
       changeBy(1);
     },
-    decrement: function() {
+    decrement: function () {
       changeBy(-1);
     },
-    value: function() {
+    value: function () {
       return privateCounter;
-    }
-  }
+    },
+  };
 })();
 
 var Counter1 = makeCounter();
@@ -3767,119 +3796,123 @@ console.log(Counter2.value()); /* logs 0 */
 (https://www.cnblogs.com/peakleo/p/6248242.html)
 
 总结：
-+ valueOf偏向于运算，toString偏向于显示。
-+ 在进行强转字符串类型时将优先调用toString方法，强转为数字时优先调用valueOf。
-+ 在有运算操作符的情况下，valueOf的优先级高于toString。
+
+- valueOf 偏向于运算，toString 偏向于显示。
+- 在进行强转字符串类型时将优先调用 toString 方法，强转为数字时优先调用 valueOf。
+- 在有运算操作符的情况下，valueOf 的优先级高于 toString。
 
 > this
 
 https://vue3js.cn/interview/JavaScript/this.html#%E4%BA%8C%E3%80%81%E7%BB%91%E5%AE%9A%E8%A7%84%E5%88%99
 
-new过程遇到return一个对象，此时this指向为返回的对象
+new 过程遇到 return 一个对象，此时 this 指向为返回的对象
+
 ```ts
-function fn()
-{
-    this.user = 'xxx';
-    return {};
+function fn() {
+  this.user = "xxx";
+  return {};
 }
 var a = new fn();
 console.log(a.user); //undefined
 ```
-如果返回一个简单类型的时候，则this指向实例对象
+
+如果返回一个简单类型的时候，则 this 指向实例对象
 
 ```ts
-function fn()
-{
-    this.user = 'xxx';
-    return 1;
+function fn() {
+  this.user = "xxx";
+  return 1;
 }
-var a = new fn;
-console.log(a.user); //xxx
-```
-注意的是null虽然也是对象，但是此时new仍然指向实例对象
-
-```ts
-function fn()
-{
-    this.user = 'xxx';
-    return null;
-}
-var a = new fn;
-
+var a = new fn();
 console.log(a.user); //xxx
 ```
 
-> addEventListener('click',fun)和onclick区别
-
-+ 前者可添加多个处理函数，后者只能一个，多设置会覆盖
-+ 前者删除使用removeEventListener，后者node.click = null
-+ onclick 和attachEvent 只能得到冒泡阶段,addEventListener可以设置捕获阶段或冒泡阶段
+注意的是 null 虽然也是对象，但是此时 new 仍然指向实例对象
 
 ```ts
-typeof console // 'object'
-typeof console.log // 'function'
+function fn() {
+  this.user = "xxx";
+  return null;
+}
+var a = new fn();
+
+console.log(a.user); //xxx
+```
+
+> addEventListener('click',fun)和 onclick 区别
+
+- 前者可添加多个处理函数，后者只能一个，多设置会覆盖
+- 前者删除使用 removeEventListener，后者 node.click = null
+- onclick 和 attachEvent 只能得到冒泡阶段,addEventListener 可以设置捕获阶段或冒泡阶段
+
+```ts
+typeof console; // 'object'
+typeof console.log; // 'function'
 ```
 
 ### 正则表达式
 
-+ 正则表达式动态参数匹配
-```ts
-const pref = 'a', suff = 'e'
-const reg = `${pref}.*${suff}`
-const res = 'apple'
-console.log(RegExp(reg), res.match(reg))   //   /a.*e/ [ 'apple', index: 0, input: 'apple', groups: undefined ]
-```
-(https://vue3js.cn/interview/JavaScript/regexp.html#%E5%9B%9B%E3%80%81%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF)
+- 正则表达式动态参数匹配
 
+```ts
+const pref = "a",
+  suff = "e";
+const reg = `${pref}.*${suff}`;
+const res = "apple";
+console.log(RegExp(reg), res.match(reg)); //   /a.*e/ [ 'apple', index: 0, input: 'apple', groups: undefined ]
+```
+
+(https://vue3js.cn/interview/JavaScript/regexp.html#%E5%9B%9B%E3%80%81%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF)
 
 > 函数缓存
 
 ```ts
 const memoize = function (func, content) {
-    let cache = Object.create(null)
-    content = content || this
-    return (...key) => {
-        console.log(key, typeof key, Object.prototype.toString.call(key))
-        if (!cache[key]) {
-            cache[key] = func.apply(content, key)
-        }
-        return cache[key]
+  let cache = Object.create(null);
+  content = content || this;
+  return (...key) => {
+    console.log(key, typeof key, Object.prototype.toString.call(key));
+    if (!cache[key]) {
+      cache[key] = func.apply(content, key);
     }
-}
+    return cache[key];
+  };
+};
 function add(x, y) {
-    return x + y
+  return x + y;
 }
 const calc = memoize(add);
-const num1 = calc(100, 200)
-const num2 = calc(100, 200) // 缓存得到的结果
+const num1 = calc(100, 200);
+const num2 = calc(100, 200); // 缓存得到的结果
 ```
-+ 当前函数作用域定义了一个空对象，用于缓存运行结果
-+ 运用柯里化返回一个函数，返回的函数由于闭包特性，可以访问到cache
-+ 然后判断输入参数是不是在cache的中。如果已经存在，直接返回cache的内容，如果没有存在，使用函数func对输入参数求值，+ 然后把结果存储在cache中
 
-+ 使用场景
-  + 对于昂贵的函数调用，执行复杂计算的函数
-  + 对于具有有限且高度重复输入范围的函数
-  + 对于具有重复输入值的递归函数
-  + 对于纯函数，即每次使用特定输入调用时返回相同输出的函数
+- 当前函数作用域定义了一个空对象，用于缓存运行结果
+- 运用柯里化返回一个函数，返回的函数由于闭包特性，可以访问到 cache
+- 然后判断输入参数是不是在 cache 的中。如果已经存在，直接返回 cache 的内容，如果没有存在，使用函数 func 对输入参数求值，+ 然后把结果存储在 cache 中
 
-> Bom操作
+- 使用场景
+  - 对于昂贵的函数调用，执行复杂计算的函数
+  - 对于具有有限且高度重复输入范围的函数
+  - 对于具有重复输入值的递归函数
+  - 对于纯函数，即每次使用特定输入调用时返回相同输出的函数
+
+> Bom 操作
 
 （https://www.bilibili.com/read/cv12847516?from=note）
 
-> a标签不跳转
+> a 标签不跳转
 
-+ href="javascript:void(0)"
-+ href="javascript:;"
-+ e.preventDefault
-+ 事件中return false
-
+- href="javascript:void(0)"
+- href="javascript:;"
+- e.preventDefault
+- 事件中 return false
 
 > preload
 
 通常在页面中，我们需要加载一些脚本和样式，而使用 preload 可以对当前页面所需的脚本、样式等资源进行预加载，而无需等到解析到 script 和 link 标签时才进行加载。这一机制使得资源可以更早的得到加载并可用，且更不易阻塞页面的初步渲染，进而提升性能
 
 将 link 标签的 rel 属性的值设为 preload，as 属性的值为资源类型（如脚本为 script，样式表为 style）
+
 ```ts
 <head>
   <meta charset="utf-8">
@@ -3891,11 +3924,13 @@ const num2 = calc(100, 200) // 缓存得到的结果
   <link rel="stylesheet" href="style.css">
 </head>
 ```
+
 > prefetch
 
 与 preload 一样，都是对资源进行预加载，但是 prefetch 加载的资源一般不是用于当前页面的，即未来很可能用到的这样一些资源，简单点说就是其他页面会用到的资源。当然，prefetch 不会像 preload 一样，在页面渲染的时候加载资源，而是利用浏览器空闲时间来下载。当进入下一页面，就可直接从 disk cache 里面取，既不影响当前页面的渲染，又提高了其他页面加载渲染的速度。
 
 同 preload 很相似，无需指定 as 属性：
+
 ```ts
 <head>
   <meta charset="utf-8">
@@ -3912,15 +3947,16 @@ const num2 = calc(100, 200) // 缓存得到的结果
 </head>
 ```
 
-***对当前页面需要的资源，使用 preload 进行预加载，对其它页面需要的资源进行 prefetch 预加载。***
+**_对当前页面需要的资源，使用 preload 进行预加载，对其它页面需要的资源进行 prefetch 预加载。_**
 
 > generator
 
 注意字符串数组会被遍历每个元素
+
 ```ts
 function* g3() {
   yield* [1, 2];
-  yield* '34';
+  yield* "34";
   yield* Array.from(arguments);
 }
 
@@ -3935,16 +3971,17 @@ console.log(iterator.next()); // {value: 6, done: false}
 console.log(iterator.next()); // {value: undefined, done: true}
 ```
 
-如果有return的值，那么最后一次会返回return值和done：true
+如果有 return 的值，那么最后一次会返回 return 值和 done：true
+
 ```ts
 function* g4() {
   yield* [1, 2, 3];
-  return 'foo';
+  return "foo";
 }
 
 function* g5() {
   const g4ReturnValue = yield* g4();
-  console.log(g4ReturnValue) // 'foo'
+  console.log(g4ReturnValue); // 'foo'
   return g4ReturnValue;
 }
 
@@ -3956,35 +3993,111 @@ console.log(iterator.next()); // {value: 3, done: false} done is false because g
 console.log(iterator.next()); // {value: 'foo', done: true}
 ```
 
-> map和对象
+> map 和对象
 
-+ map的键可以存任意类型，对象的键只能存字符串和symbol(存一个对象会转换为字符串)
-+ map遍历的顺序为插入顺序，而对象不一定(当下标为0，1，2时会以下标数字排序)
-+ map的键值对数量可以用size获取，对象只能手算
-+ map会键名冲突，而对象的属性可能会覆盖原型属性
+- map 的键可以存任意类型，对象的键只能存字符串和 symbol(存一个对象会转换为字符串)
+- map 遍历的顺序为插入顺序，而对象不一定(当下标为 0，1，2 时会以下标数字排序)
+- map 的键值对数量可以用 size 获取，对象只能手算
+- map 会键名冲突，而对象的属性可能会覆盖原型属性
 
 ```ts
-const map = new Map()
-map.set({}, '1r')
-console.log(map.get({})) //undefined 因为不是同个引用
+const map = new Map();
+map.set({}, "1r");
+console.log(map.get({})); //undefined 因为不是同个引用
 ```
 
 > ??逻辑符和?.
 
-前者直接判断是否null或undefined,如果是直接返回??后的值
-后者判断是否有该属性，有的话继续访问最终返回，没有的话直接返回undefined
+前者直接判断是否 null 或 undefined,如果是直接返回??后的值
+后者判断是否有该属性，有的话继续访问最终返回，没有的话直接返回 undefined
 
 ```ts
-const a = { foo: 'bar' }
-const b = a?.foo?.bar
-console.log(a ?? '2', b)
+const a = { foo: "bar" };
+const b = a?.foo?.bar;
+console.log(a ?? "2", b);
 //{ foo: 'bar' } undefined
 ```
 
-> 数字分隔符_
+> 数字分隔符\_
 
 ```ts
 const num1 = 1_234_567;
 // 等价
 const num1 = 1234567;
 ```
+
+### vue3 中配置 webpack
+
+1.使用 configureWebpack，可以是一个对象也可以是函数，最终会被 webpack-merge 合并入最终的 webpack 配置
+
+```ts
+configureWebpack: { rules:[], plugins: [] }
+configureWebpack: (config) => { // 例如，通过判断运行环境，设置 mode config.mode = 'production' }
+```
+
+2.chainWebpack 进行链式操作
+
+#### 首屏加载时间
+
+a.DOMContentLoaded 是 dom🌲 构建完成
+B.window.onload 整个页面加载完成，包括图片，视频等外部资源
+C.使用 performance 的 api 进行计算
+times = (performance.timing.domComplete - performance.timing.navigationStart) / 1000
+
+#### 首屏优化
+
+A.路由懒加载
+B.打包时将体积小的图片资源转成 base64，减少请求发送
+C.多使用缓存
+D.对第三方库如组件库进行按需加载
+E.打包时进行 compress 压缩
+F.打包时使用 CommonsChunkPlugin 抽离公共模块
+g.使用 tree-shaking
+H.对渲染内容进行懒加载
+
+#### 拖拽的实现
+
+function handleDragStart(e) { e.dataTransfer.setData('DRAG_NODE_ID', e.target.id) } function handleDragOver(e) { e.preventDefault(); } function handleDrop(e) { e.preventDefault(); var data = e.dataTransfer.getData('DRAG_NODE_ID'); e.target.appendChild(document.getElementById(data)); }
+
+A.注意 drag 过程中和 drop 要 e.preventDefault()
+B.dataTransfer 是所有拖拽事件的数据中心(可理解是事件的 map)，可进行 setData，getData，clearData
+
+### nodeJs 事件循环
+
+分为
+1.️timers 阶段，执行 settimeout 和 setinterval 回调
+2.pending callbacks 阶段，执行系统回调如 tcp 连接失败回调
+3.prepare 阶段，内部系统使用
+4.️poll 阶段，执行 IO 回调，若当前 poll 队列有回调则执行，没有的话就轮询 timers 阶段和 check 阶段队列是否为空，若为空则停留在 poll 阶段继续轮询，有的话则跳到对应阶段去执行回调
+5.️check 阶段，执行 setimmediate 回调
+6.close 阶段，关闭回调
+
+过程中遇到微任务会将微任务放入微任务队列，并优先执行再执行宏任务
+
+#### 充当盒子时多用 template 替代 div
+
+因为 template 在渲染时只做占位不会被渲染成 dom，而 div 则会作为无效盒子
+
+#### eval 为什么不能使用
+
+能够将传入的字符串作为 js 进行执行 1.编译效率低，速度慢 2.！eval 被调用时会被第三方看见作用域，不安全
+3.eval 有被篡改的可能，导致网页受到攻击
+
+#### with 不推荐使用
+
+能够改变作用域 1.如果进行了右查询且变量不存在那么会在全局创建新的变量，值为 undifined 2.性能弱
+
+#### 路由懒加载原理
+
+正常：
+Webpack 打包时将所有路由对应资源打包到一个 js 文件中，在页面加载时请求该 js 文件
+懒加载：
+Webpack 打包时会将懒加载路由对应资源打包到一个独立 js 文件中，需要时在请求该 js 文件
+
+#### 大文件上传
+
+https://juejin.cn/post/6844904046436843527#heading-11
+
+#### tree-shaking 原理
+
+1.依赖于 es6module 的静态分析（模块间的依赖时高度确定的，因为 import 只能放顶层），在 make 阶段会收集该模块导出的变量，并记录到模块依赖图中。 2.之后在 seal 阶段遍历模块依赖图去检查变量是否被引用 3.最后在生成代码时，如果发现该变量没有被引用，那么使用 terser 将这个变量的导出语句删除。

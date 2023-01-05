@@ -4,7 +4,7 @@
  * @Author: congsir
  * @Date: 2022-04-25 22:25:01
  * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2023-01-04 23:24:40
+ * @LastEditTime: 2023-01-05 22:25:54
 -->
 
 > 对伪元素的动态设置可以通过动态类来实现
@@ -290,26 +290,84 @@ httpPost('http://hah.com', {}, {
 
 ### white-space
 
-Normal : 空白符会直接被忽略
-Pre：空白符会被保留
-Nowrap：不换行直到遇到<br>
-Pre-wrap：保留空白符，正常换行
-Pre-line：合并空白符，保留换行
-inherit：继承父
+- Normal : 空白符会直接被忽略
+- Pre：空白符会被保留
+- Nowrap：不换行直到遇到`<br>`
+- Pre-wrap：保留空白符，正常换行
+- Pre-line：合并空白符，保留换行
+- inherit：继承父
 
 ### 图片压缩
 
-1.通过 input 的 change 事件获取 file 2.对 file 的 size 进行判断 3.将 file 转成 base63 格式
-const reader = new FileReader()
-reader.readAsDataURL(file)
+- 通过 input 的 change 事件获取 file
+- 对 file 的 size 进行判断
+- 将 file 转成 base64 格式
+
+```ts
+const reader = new FileReader();
+reader.readAsDataURL(file);
 reader.onLoad((e) => {
-const base64Url = e.target.result
-压缩函数
-reader = null
-}) 4.计算图片宽高，压缩宽高 5.获取 canvas 上下文，使用 drawImage 绘制图片 6.使用 canvas.toDataURL('image/jpeg', 0.8)获取压缩后的 url 7.上传到后端
+  const base64Url = e.target.result;
+  reader = null;
+});
+```
+
+- 计算图片宽高，压缩宽高
+- 获取 canvas 上下文，使用 drawImage 绘制图片
+- 使用 canvas.toDataURL('image/jpeg', 0.8)获取压缩后的 url
+- 上传到后端
 
 ### 黑暗模式
 
-1.在 html 标签上加上 filter：grayscale(%)使所有图片转为灰色 2.使用媒体查询判断系统设置@media (prefers-color-scheme: dark) 3.使用 js 根据系统切换类名
-注意 filter 虽然能够实现黑暗模式，但是有个问题，图片和背景图也会被滤镜，可以通过对图片再 filter 一次解决这个问题。
-html { background: #fff; filter: invert(1) hue-rotate(180deg); } html img { filter: invert(1) hue-rotate(180deg); }
+- 在 html 标签上加上 filter：grayscale(%)使所有图片转为灰色
+- 使用媒体查询判断系统设置@media (prefers-color-scheme: dark)
+- 使用 js 根据系统切换类名
+  注意 filter 虽然能够实现黑暗模式，但是有个问题，图片和背景图也会被滤镜，可以通过对图片再 filter 一次解决这个问题。
+
+```css
+html {
+  background: #fff;
+  filter: invert(1) hue-rotate(180deg);
+}
+html img {
+  filter: invert(1) hue-rotate(180deg);
+}
+```
+
+### 单点登录
+
+1.同根域下
+直接将 cookie 的 domain 设置为根域，这样所有站点都能通过该 cookie 登录
+
+2.不同根域下：
+A.用户访问应用 A，查看 cookie 发现没有登录
+B.用户跳转到认证 z 中心（url 携带应用 A 的路径）
+C.认证中心发现用户没有登录，于是进行登录
+D.登录成功后，服务端返回令牌，认证中心创建全局会话，跳转回应用 A 并在 url 带上令牌
+E.应用 A 创建局部会话，并带上令牌再向认证中心发请求，验证成功，返回资源
+F.用户访问应用 B，查看 cookie 发现没有登录
+G.用户跳转到认证 z 中心（url 携带应用 A 的路径）
+H.认证中心发现用户已经登录，于是跳转回应用 B 并在 url 带上令牌
+I.应用 B 创建局部会话，并带上令牌再向认证中心发请求，验证成功，返回资源
+
+### 实现 a-model 效果，使 div 具有失焦效果
+
+A. 在根元素设置点击事件，使 div 隐藏
+B.在当前 div 设置点击事件，并且设置阻止冒泡
+C.这样当点击 div 时，不会冒泡到根元素去隐藏，而点击 div 外的元素则会隐藏 div
+
+#### 进入页面时默认打开路由菜单的第一项
+
+S.先检查是否有已缓存的路径，有则直接使用然后 return
+A.首先获取路由菜单对象
+B.根据权限过滤路由菜单对象
+C.之后获取到首个菜单项
+D.之后根据菜单项来获取被选中路径
+E.可以在进入页面时调用函数触发使用 push，也可以在路由拦截器里根据情况触发函数。
+
+#### 切换版本时，保存原来页面的路由菜单情况
+
+A.在每次点击路由菜单时，使用 localstorage 或者 cookie 去保存当前路径信息
+️ 当默认打开路由菜单时注意也要保存默认路径信息，否则会丢失上一次路径信息
+️️ 可以使用 watch 监听路径变化，直接保存更加简便
+B.返回时触发默认打开路由菜单第一项
