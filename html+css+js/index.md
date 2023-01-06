@@ -4037,23 +4037,7 @@ configureWebpack: (config) => { // 例如，通过判断运行环境，设置 mo
 
 2.chainWebpack 进行链式操作
 
-#### 首屏加载时间
 
-a.DOMContentLoaded 是 dom🌲 构建完成
-B.window.onload 整个页面加载完成，包括图片，视频等外部资源
-C.使用 performance 的 api 进行计算
-times = (performance.timing.domComplete - performance.timing.navigationStart) / 1000
-
-#### 首屏优化
-
-A.路由懒加载
-B.打包时将体积小的图片资源转成 base64，减少请求发送
-C.多使用缓存
-D.对第三方库如组件库进行按需加载
-E.打包时进行 compress 压缩
-F.打包时使用 CommonsChunkPlugin 抽离公共模块
-g.使用 tree-shaking
-H.对渲染内容进行懒加载
 
 #### 拖拽的实现
 

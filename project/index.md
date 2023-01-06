@@ -4,7 +4,7 @@
  * @Author: congsir
  * @Date: 2022-04-25 22:25:01
  * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2023-01-05 22:25:54
+ * @LastEditTime: 2023-01-06 23:17:18
 -->
 
 > 对伪元素的动态设置可以通过动态类来实现
@@ -371,3 +371,21 @@ A.在每次点击路由菜单时，使用 localstorage 或者 cookie 去保存�
 ️ 当默认打开路由菜单时注意也要保存默认路径信息，否则会丢失上一次路径信息
 ️️ 可以使用 watch 监听路径变化，直接保存更加简便
 B.返回时触发默认打开路由菜单第一项
+
+#### 首屏加载时间
+
+a.DOMContentLoaded 是 dom🌲 构建完成
+B.window.onload 整个页面加载完成，包括图片，视频等外部资源
+C.使用 performance 的 api 进行计算
+times = (performance.timing.domComplete - performance.timing.navigationStart) / 1000
+
+#### 首屏优化
+
+A.路由懒加载
+B.打包时将体积小的图片资源转成 base64，减少请求发送
+C.多使用缓存
+D.对第三方库如组件库进行按需加载
+E.打包时进行 compress 压缩
+F.打包时使用 CommonsChunkPlugin 抽离公共模块
+g.使用 tree-shaking
+H.对渲染内容进行懒加载
