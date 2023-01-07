@@ -4037,11 +4037,21 @@ configureWebpack: (config) => { // 例如，通过判断运行环境，设置 mo
 
 2.chainWebpack 进行链式操作
 
-
-
 #### 拖拽的实现
 
-function handleDragStart(e) { e.dataTransfer.setData('DRAG_NODE_ID', e.target.id) } function handleDragOver(e) { e.preventDefault(); } function handleDrop(e) { e.preventDefault(); var data = e.dataTransfer.getData('DRAG_NODE_ID'); e.target.appendChild(document.getElementById(data)); }
+```ts
+function handleDragStart(e) {
+  e.dataTransfer.setData("DRAG_NODE_ID", e.target.id);
+}
+function handleDragOver(e) {
+  e.preventDefault();
+}
+function handleDrop(e) {
+  e.preventDefault();
+  var data = e.dataTransfer.getData("DRAG_NODE_ID");
+  e.target.appendChild(document.getElementById(data));
+}
+```
 
 A.注意 drag 过程中和 drop 要 e.preventDefault()
 B.dataTransfer 是所有拖拽事件的数据中心(可理解是事件的 map)，可进行 setData，getData，clearData
