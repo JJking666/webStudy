@@ -4,7 +4,7 @@
  * @Author: congsir
  * @Date: 2022-07-23 22:54:12
  * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2023-01-05 22:21:53
+ * @LastEditTime: 2023-01-14 22:07:17
 -->
 
 > vuex 和 localstorage 区别
@@ -192,3 +192,25 @@ psd:
 TIFF:
 优点：保存丰富的图像层次和细节；画面质量无损。
 缺点：占用存储空间大。
+
+#### eval 为什么不能使用
+
+能够将传入的字符串作为 js 进行执行
+
+- 编译效率低，速度慢
+- ！eval 被调用时会被第三方看见作用域，不安全
+- eval 有被篡改的可能，导致网页受到攻击
+
+#### with 不推荐使用
+
+能够改变作用域
+
+- 如果进行了右查询且变量不存在那么会在全局创建新的变量，值为 undifined
+- 性能弱
+
+#### 路由懒加载原理
+
+正常：
+Webpack 打包时将所有路由对应资源打包到一个 js 文件中，在页面加载时请求该 js 文件
+懒加载：
+Webpack 打包时会将懒加载路由对应资源打包到一个独立 js 文件中，需要时在请求该 js 文件

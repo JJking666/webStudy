@@ -213,8 +213,9 @@ function xx() {
     }
 }
 ```
-如果文件体积小于maxSize，那么文件会被视为inline类型(Base64 Data URL)，否则视为resource类型(URL)
-前者不需要发请求，但是体积会增大1/3，而且不会被缓存(可以通过作为Css文件中来缓存)
+
+如果文件体积小于 maxSize，那么文件会被视为 inline 类型(Base64 Data URL)，否则视为 resource 类型(URL)
+前者不需要发请求，但是体积会增大 1/3，而且不会被缓存(可以通过作为 Css 文件中来缓存)
 
 ### plugins 插件
 
@@ -661,13 +662,14 @@ new PurifyCssWebpack({
 
 ```
 
-
 > 热更新原理
 
 https://cloud.tencent.com/developer/article/1551693
 
-1.启动webpack，生成compiler实例。compiler上有很多方法，比如可以启动 webpack 所有编译工作，以及监听本地文件的变化。
-2.使用express框架启动本地server，将打包后的资源提供给浏览器。
-3.本地server启动之后，再去启动websocket服务通过websocket，可以建立本地服务和浏览器的双向通信。
-4.当某一个文件或者模块发生变化时，webpack监听到文件变化对文件重新编译打包，编译生成唯一的hash值，和两个补丁文件：manifest（包含了 hash 和 chundId，用来说明变化的内容）和chunk.js 文件
-6.服务器会主动把两个文件推送给浏览器，浏览器根据manifest文件获取模块变化的内容，从而重新渲染
+1.启动 webpack，生成 compiler 实例。compiler 上有很多方法，比如可以启动 webpack 所有编译工作，以及监听本地文件的变化。 2.使用 express 框架启动本地 server，将打包后的资源提供给浏览器。 3.本地 server 启动之后，再去启动 websocket 服务通过 websocket，可以建立本地服务和浏览器的双向通信。 4.当某一个文件或者模块发生变化时，webpack 监听到文件变化对文件重新编译打包，编译生成唯一的 hash 值，和两个补丁文件：manifest（包含了 hash 和 chundId，用来说明变化的内容）和 chunk.js 文件 6.服务器会主动把两个文件推送给浏览器，浏览器根据 manifest 文件获取模块变化的内容，从而重新渲染
+
+#### tree-shaking 原理
+
+- 依赖于 es6module 的静态分析（模块间的依赖时高度确定的，因为 import 只能放顶层），在 make 阶段会收集该模块导出的变量，并记录到模块依赖图中
+- 之后在 seal 阶段遍历模块依赖图去检查变量是否被引用
+- 最后在生成代码时，如果发现该变量没有被引用，那么使用 terser 将这个变量的导出语句删除。
