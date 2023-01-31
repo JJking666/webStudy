@@ -3,8 +3,8 @@
  * @version:
  * @Author: congsir
  * @Date: 2022-07-23 22:54:12
- * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2023-01-14 22:07:17
+ * @LastEditors: JJking666 1337802617@qq.com
+ * @LastEditTime: 2023-01-31 15:33:22
 -->
 
 > vuex 和 localstorage 区别
@@ -214,3 +214,50 @@ TIFF:
 Webpack 打包时将所有路由对应资源打包到一个 js 文件中，在页面加载时请求该 js 文件
 懒加载：
 Webpack 打包时会将懒加载路由对应资源打包到一个独立 js 文件中，需要时在请求该 js 文件
+
+### Service Worker
+
+Service Worker 是运行在浏览器背后的独立线程，一般可以用来实现缓存功能，必须使用 https 因为涉及请求拦截
+
+一般分为三个步骤：首先需要先注册 Service Worker，然后监听到 install 事件以后就可以缓存需要的文件，那么在下次用户访问的时候就可以通过拦截请求的方式查询是否存在缓存，存在缓存的话就可以直接读取缓存文件，否则就去请求数据。
+
+```ts
+// index.js
+if (navigator.serviceWorker) {
+  navigator.serviceWorker
+    .register("sw.js")
+    .then(function (registration) {
+      console.log("service worker 注册成功");
+    })
+    .catch(function (err) {
+      console.log("servcie worker 注册失败");
+    });
+}
+// sw.js
+// 监听 `install` 事件，回调中缓存所需文件
+self.addEventListener("install", (e) => {
+  e.waitUntil(
+    caches.open("my-cache").then(function (cache) {
+      return cache.addAll(["./index.html", "./index.js"]);
+    })
+  );
+});
+// 拦截所有请求事件
+// 如果缓存中已经有请求的数据就直接用缓存，否则去请求数据
+self.addEventListener("fetch", (e) => {
+  e.respondWith(
+    caches.match(e.request).then(function (response) {
+      if (response) {
+        return response;
+      }
+      console.log("fetch source");
+    })
+  );
+});
+```
+
+### CSS 如何阻塞文档解析？
+
+理论上，既然样式表不改变 DOM 树，也就没有必要停下文档的解析等待它们。然而，存在一个问题，JavaScript 脚本执行时可能在文档的解析过程中请求样式信息，如果样式还没有加载和解析，脚本将得到错误的值，显然这将会导致很多问题。所以如果浏览器尚未完成 CSSOM 的下载和构建，而我们却想在此时运行脚本，那么浏览器将延迟 JavaScript 脚本执行和文档的解析，直至其完成 CSSOM 的下载和构建。也就是说，在这种情况下，浏览器会先下载和构建 CSSOM，然后再执行 JavaScript，最后再继续文档的解析。
+
+即当 cssOM 树未构建完成就运行 js 脚本时，会阻塞 js 脚本和文档解析直至构建完成再执行 js 脚本，再完成文档解析
