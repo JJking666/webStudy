@@ -155,7 +155,21 @@ Eval 函数执行上下文（少见）
 执行上下文在创建阶段会 1.确定 this 值 2.创建词法环境 3.创建变量环境
 
 ```ts
-function foo(){ var a = 1 let b = 2 { let b = 3 var c = 4 let d = 5 console.log(a) console.log(b) } console.log(b) console.log(c) console.log(d) } foo()
+function foo(){
+  var a = 1 let b = 2
+  {
+    let b = 3
+    var c = 4
+    let d = 5
+    console.log(a)
+    console.log(b)
+    }
+    console.log(b)
+    console.log(c)
+    console.log(d)
+  }
+
+    foo()
 
 在执行到 let b = 2 时
 词法环境 b = 2，变量环境 a=1，c=undefined
