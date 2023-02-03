@@ -3,8 +3,8 @@
  * @version:
  * @Author: congsir
  * @Date: 2022-04-25 22:25:01
- * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2022-11-09 17:40:24
+ * @LastEditors: JJking666 1337802617@qq.com
+ * @LastEditTime: 2023-02-02 14:52:36
  */
 
 // console.log(1)
@@ -43,7 +43,6 @@
 // Object.setPrototypeOf(o2, obj)
 // console.log(o2, Object.getPrototypeOf(o2))
 
-
 // const object1 = {
 //     prop: 'exists'
 // };
@@ -62,7 +61,6 @@
 //     console.log(foo.prop); //true
 // }
 // foo.hasOwnProperty("prop");
-
 
 // console.log(0 === -0);                 // true
 // console.log(+0 === -0);                // true
@@ -110,7 +108,6 @@
 
 // console.log(proxy.foo)
 
-
 // const memoize = function (func, content) {
 //     let cache = Object.create(null)
 //     content = content || this
@@ -136,7 +133,6 @@
 // let r = res.match(reg)
 // console.log(r)   //   [ 'apple', 'a2e' ]
 
-
 // function check(c, item) {
 //     let res = 0
 //     for (let index = 0; index < c.length; index++) {
@@ -151,7 +147,6 @@
 // }
 // console.log(check('abbba', 'a1pp'))
 // console.log(null instanceof Object)
-
 
 // Promise.prototype.allSettled = function (promises) {
 //     let results = [];
@@ -187,7 +182,6 @@
 // promiseAll.then(function (res) {
 //     console.log(res);
 // })
-
 
 // function myInstanceof(left, right) {
 //     let proto = Object.getPrototypeOf(left), // 获取对象的原型
@@ -462,7 +456,6 @@
 
 // const map = new Map();
 
-
 // map.set('2', 'b')
 // map.set('1', 'a')
 // map.set('3', 'c')
@@ -480,8 +473,6 @@
 // // for (const c of map1) {
 // //     console.log(c)
 // // }
-
-
 
 // // for (const c of map) {
 // //     console.log(c)
@@ -503,7 +494,6 @@
 // a.b()
 // A.a()  //报错  a - A.prototype - Object.prototype - null
 // A.b()  //报错  a - A.prototype - Object.prototype - null
-
 
 // class demo {
 //     static obj = new demo();
@@ -541,8 +531,6 @@
 // const a = SingleObject.getInstance();
 // a.showMessage()
 
-
-
 // function gb_sort(arr) {
 //     if (arr.length <= 1) return arr;
 //     const midIndex = Math.floor(arr.length / 2)
@@ -562,10 +550,6 @@
 
 // const i = 1100;
 // console.log(new Set(1100))
-
-
-
-
 
 // this.a = 1
 // const b = {
@@ -598,7 +582,6 @@
 // })()
 // console.log(2, b)
 
-
 // const obj = {
 //     a: 1,
 //     b: 23
@@ -610,8 +593,6 @@
 // Object.defineProperty(person, 'name', { value: 'zxc' })
 
 // console.log(person)
-
-
 
 // function getLongestPalindrome(str) {
 //     // write code here
@@ -651,7 +632,6 @@
 // }
 
 // console.log(getLongestPalindrome("cb3eeee3bcd"))
-
 
 // "ACDEFHGB", "DECAHFBG"
 
@@ -818,7 +798,6 @@
 // console.log(4)
 // obj.f5()        //aaaa
 
-
 // const obj = {
 //     f: 'f',
 //     f1: function f1() {
@@ -833,7 +812,6 @@
 //     f4: null
 // }
 // console.log(JSON.parse(JSON.stringify(obj)))
-
 
 // // 字符串获取重复最多的字符及数字
 
@@ -852,7 +830,6 @@
 //     console.log(max, s)
 // }
 // demo('asdsbfoiaaaa')
-
 
 // function demo(str) {
 //     const map = new Map();
@@ -922,8 +899,6 @@
 // }
 // all([a, b, c])
 
-
-
 // const obj = {
 //     name: 'baidu',
 //     arr: ['a', 'b', 'c']
@@ -964,9 +939,6 @@
 // console.log(fn(100)(200))   //300
 // console.log(getInfo('curry')(100)(300)) //400
 
-
-
-
 // var name = 'oop'
 
 // var Person = function (options) {
@@ -994,7 +966,6 @@
 // console.log(Person.prototype.getName()) // iron man
 // console.log(p.getName()) //inke
 // console.log(Person.getName()) // undefined
-
 
 // useEffect()
 // useMemo()
@@ -1034,7 +1005,6 @@
 //     return [...demo(left), arr[mid], ...demo(right)]
 // }
 
-
 // let f = 'i'
 // const obj = {
 //     f: 'f',
@@ -1057,13 +1027,7 @@
 // f = 'name'
 // obj.f3()
 
-
-
 // console.log(J)
-
-
-
-
 
 // function makeChagne(change) {
 //     // write code here
@@ -1113,67 +1077,14 @@
 
 // const line = readline().split(' ')
 
-
 // let n = parseInt(line[0]),x= parseInt(line[1]),t = 0,p=n
 
-
-function fd(fn, time){
-    let timer = null
-    return function () {
-        if(timer){
-            clearTimeout(timer)
-        }
-        timer = setTimeout(() => {
-            fn()
-        }, time)
-    }
-}
-
-
-class line {
-    arr = []
-    tack1 = []
-    tack2 = []
-    tag = 1
-    unshift () {
-        let res
-        if(this.tag){
-            if(!this.tack1.length)return -1
-            this.tack2 = [...this.tack1.reverse()]
-            res = this.tack2.pop()
-            if(this.tack2.length === 0){
-                this.tag = 0
-            }
-            return res
-        }else{
-            if(!this.tack2.length)return -1
-            this.tack1 = [...this.tack2.reverse()]
-            res = this.tack1.pop()
-            if(this.tack1.length === 0){
-                this.tag = 1
-            }
-            return res
-        }
-    }
-
-    push (val) {
-        if(this.tag){
-            this.tack1.push(val)
-        } else {
-            this.tack2.push(val)
-        }
-    }
-}
-const demo = new line()
-demo.push(1)
-demo.push(2)
-console.log(demo.tack1,demo.tack2)
-console.log(demo.unshift())
-demo.push(1)
-demo.push(2)
-demo.push(3)
-console.log(demo.tack1,demo.tack2)
-console.log(demo.unshift())
-
-
-
+const res = [1, 2, 3];
+console.log(res.push(11));
+console.log(res.push(11));
+console.log(res.unshift(22));
+console.log(res.unshift(22));
+console.log(res.shift());
+console.log(res.shift());
+console.log(res.pop());
+console.log(res.pop());
