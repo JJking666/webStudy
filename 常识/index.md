@@ -4,7 +4,7 @@
  * @Author: congsir
  * @Date: 2022-07-23 22:54:12
  * @LastEditors: JJking666 1337802617@qq.com
- * @LastEditTime: 2023-01-31 15:33:22
+ * @LastEditTime: 2023-02-08 22:28:35
 -->
 
 > vuex 和 localstorage 区别
@@ -148,11 +148,99 @@ function compileCode(code) {
 
 ### 执行上下文
 
+https://juejin.cn/post/6844903682283143181#heading-4
+
 全局上下文
 函数执行上下文
 Eval 函数执行上下文（少见）
 
-执行上下文在创建阶段会 1.确定 this 值 2.创建词法环境 3.创建变量环境
+执行上下文在创建阶段会
+- 确定 this 值
+- 创建词法环境 (环境记录器和一个外部环境的引用)。
+  - 环境记录器是存储变量和函数声明的实际位置。
+  - 外部环境的引用意味着它可以访问其父级词法环境（作用域）。
+- 创建变量环境
+  - 环境记录器持有变量声明语句在执行上下文中创建的绑定关系
+
+在 ES6 中，词法环境组件和变量环境的一个不同就是前者被用来存储函数声明和变量（let 和 const）绑定，而后者只用来存储 var 变量绑定。
+
+```ts
+ExecutionContext = {
+  ThisBinding = <this value>,
+  LexicalEnvironment = { ... }, //词法环境
+  VariableEnvironment = { ... },  //变量环境
+}
+```
+
+举例：
+```ts
+let a = 20;
+const b = 30;
+var c;
+
+function multiply(e, f) {
+ var g = 20;
+ return e * f * g;
+}
+
+c = multiply(20, 30);
+```
+执行上下文看起来像这样：
+```ts
+GlobalExectionContext = {
+
+  ThisBinding: <Global Object>,
+
+  LexicalEnvironment: {
+    EnvironmentRecord: {
+      Type: "Object",
+      // 在这里绑定标识符
+      a: < uninitialized >,
+      b: < uninitialized >,
+      multiply: < func >
+    }
+    outer: <null>
+  },
+
+  VariableEnvironment: {
+    EnvironmentRecord: {
+      Type: "Object",
+      // 在这里绑定标识符
+      c: undefined,
+    }
+    outer: <null>
+  }
+}
+
+FunctionExectionContext = {
+  ThisBinding: <Global Object>,
+
+  LexicalEnvironment: {
+    EnvironmentRecord: {
+      Type: "Declarative",
+      // 在这里绑定标识符
+      Arguments: {0: 20, 1: 30, length: 2},
+    },
+    outer: <GlobalLexicalEnvironment>
+  },
+
+VariableEnvironment: {
+    EnvironmentRecord: {
+      Type: "Declarative",
+      // 在这里绑定标识符
+      g: undefined
+    },
+    outer: <GlobalLexicalEnvironment>
+  }
+}
+```
+注意 — 只有遇到调用函数 multiply 时，函数执行上下文才会被创建。
+
+可能你已经注意到 let 和 const 定义的变量并没有关联任何值，但 var 定义的变量被设成了 undefined。
+这是因为在创建阶段时，引擎检查代码找出变量和函数声明，虽然函数声明完全存储在环境中，但是变量最初设置为 undefined（var 情况下），或者未初始化（let 和 const 情况下）。
+
+这就是为什么你可以在声明之前访问 var 定义的变量（虽然是 undefined），但是在声明之前访问 let 和 const 的变量会得到一个引用错误。
+这就是我们说的变量声明提升。
 
 ```ts
 function foo(){
@@ -281,3 +369,26 @@ self.addEventListener("fetch", (e) => {
 > 相同点： assets 和 static 两个都是存放静态资源文件。项目中所需要的资源文件图片，字体图标，样式文件等都可以放在这两个文件下，这是相同点
 > 不相同点：前者打包时会进行体积压缩和代码格式化，后者直接打包。assets 中存放的静态资源文件在项目打包时，也就是运行 npm run build 时会将 assets 中放置的静态资源文件进行打包上传，所谓打包简单点可以理解为压缩体积，代码格式化。而压缩后的静态资源文件最终也都会放置在 static 文件中跟着 index.html 一同上传至服务器。static 中放置的静态资源文件就不会要走打包压缩格式化等流程，而是直接进入打包好的目录，直接上传至服务器。
 > 建议： 将项目中 template 需要的样式文件 js 文件等都可以放置在 assets 中，走打包这一流程。减少体积。而项目中引入的第三方的资源文件如 iconfoont.css 等文件可以放置在 static 中，因为这些引入的第三方文件已经经过处理，不再需要处理，直接上传。
+
+### 传统编译
+
+- 词法解析，将字符串解析成有意义的代码块
+- 语法分析，生成抽象语法树
+- 代码生成，将抽象语法树转成可执行代码
+
+### js作用域详解
+
+https://juejin.cn/post/7102730175086854151
+
+javascript 当中，编译器、作用域、引擎三者之间构成了一个很大的关系
+
+比如:`var a = 2`;
+
+- 编译器会将`var a = 2`;解析成一个抽象语法树，这个抽象语法树会被转换成可执行代码
+- 这个过程当中，编译器解析`var a`的时候，会先去作用域中查看是否已经声明了一个变量名为`a `的变量，如果没有，编译器会在作用域当中添加一个变量名为`a`的变量
+- 编译器会为引擎生成运行所需要的代码
+- 这些代码被用来处理a = 2，在引擎执行的之后， 会先询问作用域当中是否包含一个变量名为a的变量
+  - 有，则将它赋值为2
+  - 无，引擎会为它在全局作用域中创建一个变量，并且赋值为2
+
+可理解为编译器是加工者，作用域是加工材料仓库，引擎是执行者

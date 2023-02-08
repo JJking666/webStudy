@@ -3,8 +3,8 @@
  * @version:
  * @Author: congsir
  * @Date: 2022-04-25 22:25:01
- * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2023-01-06 23:17:18
+ * @LastEditors: JJking666 1337802617@qq.com
+ * @LastEditTime: 2023-02-07 16:14:14
 -->
 
 > 对伪元素的动态设置可以通过动态类来实现
@@ -389,3 +389,36 @@ E.打包时进行 compress 压缩
 F.打包时使用 CommonsChunkPlugin 抽离公共模块
 g.使用 tree-shaking
 H.对渲染内容进行懒加载
+
+### 微信登录过程
+
+微信官网流程：(https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419316505&token=&lang=zh_CN)
+
+1.页面内嵌微信登录的二维码
+
+- 第一种
+
+1. 第三方发起微信授权登录请求，微信用户允许授权第三方应用后，微信会拉起应用或重定向到第三方网站，并且带上授权临时票据 code 参数；
+2. 通过 code 参数加上 AppID 和 AppSecret 等，通过 API 换取 access_token；
+3. 通过 access_token 进行接口调用，获取用户基本数据资源或帮助用户实现基本操作。
+
+![img](../project/static/wxLogin.png)
+
+```ts
+步骤1：在页面中先引入如下JS文件（支持https）：
+
+`http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js`
+
+步骤2：在需要使用微信登录的地方实例以下JS对象：
+
+ var obj = new WxLogin({
+ self_redirect:true,
+ id:"login_container",
+ appid: "",
+ scope: "",
+ redirect_uri: "",
+  state: "",
+ style: "",
+ href: ""
+ });
+```
