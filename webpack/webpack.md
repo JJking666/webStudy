@@ -673,3 +673,9 @@ https://cloud.tencent.com/developer/article/1551693
 - 依赖于 es6module 的静态分析（模块间的依赖时高度确定的，因为 import 只能放顶层），在 make 阶段会收集该模块导出的变量，并记录到模块依赖图中
 - 之后在 seal 阶段遍历模块依赖图去检查变量是否被引用
 - 最后在生成代码时，如果发现该变量没有被引用，那么使用 terser 将这个变量的导出语句删除。
+
+### DllPlugin
+
+使用 webpack 插件 DllPlugin 和 DllReferencePlugin 是前端工程化中优化打包速度的重要途径
+
+**他们可以打包常用的且不经常更新的模块，生成 JS 和 json 文件，一般放入 public 目录中；项目打包时不会再对这些依赖进行编译，而是通过在 html 中插入 script 标签来读取依赖。**比如 vue，antd，echarts 等常用框架和资源库。这在项目依赖包达到一定规模时尤为明显，在速度的提升上是显著的。

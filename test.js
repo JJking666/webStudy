@@ -3,34 +3,19 @@
  * @version:
  * @Author: congsir
  * @Date: 2022-07-09 23:01:46
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-08-07 17:21:25
+ * @LastEditors: JJking666 1337802617@qq.com
+ * @LastEditTime: 2023-02-10 14:12:41
  */
 
 // let n = parseInt(readline())
-async function async1() {
-    console.log('async1 start')
-    await async2()
-    console.log('async1 end')
+function Foo() {
+  console.log(2);
+  getName = function () {
+    console.log(1);
+  };
+  return this;
 }
-async function async2() {
-    console.log('async2')
-}
-console.log('script start')
-setTimeout(function () {
-    console.log('setTimeout0')
-}, 0)
-setTimeout(function () {
-    console.log('setTimeout3')
-}, 3)
-setImmediate(() => console.log('setImmediate'));
-process.nextTick(() => console.log('nextTick'));
-async1();
-new Promise(function (resolve) {
-    console.log('promise1')
-    resolve();
-    console.log('promise2')
-}).then(function () {
-    console.log('promise3')
-})
-console.log('script end')
+Foo.prototype.getName = function () {
+  console.log(4);
+};
+new new Foo().getName(); // 3
