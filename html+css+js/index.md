@@ -3405,6 +3405,8 @@ loader.next(); // 3
 
 > Proxy
 
+- 作用：拦截对被代理对象的set/get操作，方便进行一些预处理或者转换
+
 - 参数
   - target 目标对象
   - handler

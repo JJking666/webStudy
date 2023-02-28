@@ -762,3 +762,30 @@ a b c t n h
 中间乱序，但是可以移动进行复用 1.用 keyToNewIndexMap 保存乱序部分的 key 和下标 2.用 newIndexToOldIndexMap 保存新节点在旧节点的位置
 3.maxNewIndexSoFar 表示当前可复用节点(旧)在新节点的下标 newindex 的最大值
 如果 newindex 小于 maxNewIndexSoFar，说明发生交叉，需要移动 3.之后用最长递增字串方式来获得可复用节点
+
+
+## vue3优化
+
+- diff算法优化
+加入了静态标记，比较带标记的vNode时直接跳过，提高性能
+- 静态提升
+对不参与更新的元素做静态提升，只创建一次，渲染时复用
+- 事件缓存
+默认元素事件绑定是动态的，将元素绑定事件缓存后，触发事件直接复用事件函数
+- SSR优化
+- 支持composition Api
+  - 业务逻辑更加聚集更好维护
+  - 复用性强
+  - 使用更加灵活方便
+- 使用了tree-shaking 使得打包体积减小
+- 使用了proxy替代Object.defineProperty
+  - 可以监听动态属性添加
+  - 监听数组和length属性变化
+  - 监听删除属性
+  - 一次性代理整个对象，提高性能
+- 默认支持typescript
+- 支持template下多个根元素
+- 修改了一些api的名词（生命周期）
+- 修改了一些逻辑像v-for和v-if，v-for中的ref
+- 增加了
+- 删除了一些api像$on,$once,$ref.$parent

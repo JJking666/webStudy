@@ -4,7 +4,7 @@
  * @Author: congsir
  * @Date: 2022-04-25 22:25:01
  * @LastEditors: JJking666 1337802617@qq.com
- * @LastEditTime: 2023-02-02 14:52:36
+ * @LastEditTime: 2023-02-24 14:05:40
  */
 
 // console.log(1)
@@ -1077,14 +1077,120 @@
 
 // const line = readline().split(' ')
 
-// let n = parseInt(line[0]),x= parseInt(line[1]),t = 0,p=n
+// // let n = parseInt(line[0]),x= parseInt(line[1]),t = 0,p=n
 
-const res = [1, 2, 3];
-console.log(res.push(11));
-console.log(res.push(11));
-console.log(res.unshift(22));
-console.log(res.unshift(22));
-console.log(res.shift());
-console.log(res.shift());
-console.log(res.pop());
-console.log(res.pop());
+// const res = [1, 2, 3];
+// console.log(res.push(11));
+// console.log(res.push(11));
+// console.log(res.unshift(22));
+// console.log(res.unshift(22));
+// console.log(res.shift());
+// console.log(res.shift());
+// console.log(res.pop());
+// console.log(res.pop());
+
+// 1. 完成函数 flatten，接受数组作为参数，数组元素包含整数或数组，函数返回扁平化后的数组
+// function flatten(arr) {
+//   // 请在此完成函数逻辑
+//     let res = [];
+//     for (const c of arr) {
+//         if (!Array.isArray(c)) {
+//           res.push(c);
+//         } else {
+//           res = res.concat(flatten(c));
+//         }
+//     }
+//     return res
+// }
+
+// console.log(flatten([1, [2, [3, 4, [7777, [76, [6]]]], 5], 6]));
+
+class URLSearchParams {
+  constructor(params) {
+    this.res = new Map();
+    this.appendArr = [];
+    if (params instanceof Object) {
+      for (const key in params) {
+        this.res.set(key, params[key]);
+      }
+    } else {
+      const p = params.split("&");
+      for (const key in p) {
+        const [k, v] = key.split("=");
+        this.res.set(k, v);
+      }
+    }
+  }
+  get(k) {
+    return this.res.get(k);
+  }
+  has(k) {
+    return this.res.has(k);
+  }
+  append(k, v) {
+    this.appendArr.push([k, v]);
+    return true;
+  }
+  set(k, v) {
+    this.res.set(k, v);
+    return true;
+  }
+  toString() {
+    let str = [],
+      len = 0;
+    for (const [k, v] of this.res) {
+      str.push(k + "=" + v);
+      len++;
+    }
+    this.len = len;
+    for (const [k, v] of this.appendArr) {
+      str.push(k + "=" + v);
+    }
+    return str.join("&");
+  }
+  [Symbol.iterator] = function () {
+    let i = 0,
+      len = this.len;
+    const m = Array.from(this.res);
+    return {
+      next: function () {
+        console.log("?", i, len);
+        if (i < len) {
+          return {
+            value: m[i++],
+            done: false,
+          };
+        } else {
+          return {
+            value: undefined,
+            done: true,
+          };
+        }
+      },
+    };
+  };
+}
+
+let searchParams = new URLSearchParams("foo=1&bar=2");
+
+// 构造函数也支持传入一个包含参数键值对的对象
+searchParams = new URLSearchParams({ foo: "1", bar: "2" });
+
+// 实例支持 get()、set()、has()、append() 四个方法
+console.log(searchParams.get("foo")); // "1"
+searchParams.set("foo", "22");
+console.log(searchParams.has("bar")); // true
+searchParams.append("foo", "33");
+
+// 实例支持 toString() 方法
+console.log(searchParams.toString()); // "foo=22&bar=2&foo=33"
+
+//
+// 实例支持 for-of 迭代
+for (const [key, value] of searchParams) {
+  console.log([key, value]);
+  // ["foo", "22"]
+  // ["bar", "2"]
+  // ["foo", "33"]
+}
+

@@ -535,3 +535,9 @@ v-show 是组件只需要渲染一次就一直在 dom 树，通过 display：non
 #### 充当盒子时多用 template 替代 div
 
 因为 template 在渲染时只做占位不会被渲染成 dom，而 div 则会作为无效盒子
+
+### template 模板解析
+
+通过const ast = parse(template.trim(), options)将template转换成ast树
+通过optimize(ast, options)对ast进行优化
+通过const code = generate(ast, options)将优化后的ast转换成包含render字符串的code对象，最终render字符串通过new Function转换为可执行的render函数

@@ -140,6 +140,24 @@ function compileCode(code) {
     return fn(proxy);
   };
 }
+function compileCode(code, sandbox) {
+  const proxy = new Proxy(sandbox, {
+    // 拦截所有属性，防止到 Proxy 对象以外的作用域链查找。
+    has(target, key) {
+      return true;
+    },
+    get(target, key, receiver) {
+      // 加固，防止逃逸
+      if (key === Symbol.unscopables) {
+        return undefined;
+      }
+      return Reflect.get(target, key, receiver);
+    },
+  })
+  return with(proxy){
+    code
+  }
+}
 ```
 
 第三种 ses （仍在提案中，但可被使用）

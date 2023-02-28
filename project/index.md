@@ -4,7 +4,7 @@
  * @Author: congsir
  * @Date: 2022-04-25 22:25:01
  * @LastEditors: JJking666 1337802617@qq.com
- * @LastEditTime: 2023-02-07 16:14:14
+ * @LastEditTime: 2023-02-24 13:19:39
 -->
 
 > 对伪元素的动态设置可以通过动态类来实现
@@ -422,3 +422,6 @@ H.对渲染内容进行懒加载
  href: ""
  });
 ```
+
+#### 大文件上传
+https://juejin.cn/post/6844904046436843527#heading-11
