@@ -541,3 +541,12 @@ v-show 是组件只需要渲染一次就一直在 dom 树，通过 display：non
 通过const ast = parse(template.trim(), options)将template转换成ast树
 通过optimize(ast, options)对ast进行优化
 通过const code = generate(ast, options)将优化后的ast转换成包含render字符串的code对象，最终render字符串通过new Function转换为可执行的render函数
+
+
+### 如何给data中的对象的新增属性加上响应式
+
++ this.$set
++ Object.assign({},this.data.xxx,{name:'aa',age:11})
++ this.$forceUpdate
+
+注意vue3使用的proxy能够使得新属性也拥有响应式
